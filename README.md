@@ -1,8 +1,8 @@
 # naptime: A Robust Flexible Sys.sleep Replacement
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![Travis-CI Build Status](https://travis-ci.org/zapier/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
+[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](http://cran.r-project.org/package=naptime)
-[![codecov.io](https://codecov.io/github/jimhester/covr/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
+[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
 
 The premise of naptime is two fold.  
 
