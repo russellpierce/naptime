@@ -1,8 +1,19 @@
-# naptime: A Robust Flexible Sys.sleep Replacement
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![Travis-CI Build Status](https://travis-ci.org/zapier/naptime.svg?branch=master)](https://travis-ci.org/zapier/naptime)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](http://cran.r-project.org/package=naptime)
-[![codecov.io](https://codecov.io/github/jimhester/covr/coverage.svg?branch=master)](https://codecov.io/github/jimhester/covr?branch=master)
+---
+title: "naptime: A Robust Flexible Sys.sleep Replacement"
+author: "Timothy Gann & Russell S. Pierce"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{naptime: A Robust Flexible Sys.sleep Replacement}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# naptime
+
+```{r, echo=FALSE, results='hide'}
+library(naptime)
+```
 
 The premise of naptime is two fold.  
 
@@ -24,8 +35,7 @@ naptime() accepts a wide variety of inputs.  If you find a reasonable input-type
 
 * `numeric` Time in seconds
 
-
-```r
+```{r}
 naptime(1)
 ```
 
@@ -36,3 +46,6 @@ In addition, naptime will handle some specific errors:
 * All negative intervals will be converted to a delay of 0
 * All non-finite intervals will be converted to a default delay
 * All inputs that produce an error will be converted to a default delay
+
+# Author's Note
+The initial draft of this code was written by Timothy Gann under a spec drafted by Russell Pierce.  Subsequent modifications to the code, packaging, and tests were written by Russell Pierce.  Russell Pierce is the current maintainer and responsible party for this package.
