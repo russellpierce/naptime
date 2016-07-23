@@ -9,6 +9,8 @@
 #' @rdname naptime
 #'
 #' @return NULL; A side effect of a pause in program execution
+#' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now tz
+#' @importFrom methods new
 #' @export
 #' @examples
 #' \dontrun{

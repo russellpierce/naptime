@@ -5,7 +5,7 @@ Version: 0.1.2.0000
 Date: 2016-07-09
 Authors@R: c(
   person("Timothy", "Gann", role = c("aut"), email = "timothy.gann@gmail.com"),
-  person("Russell", "Pierce", role = c("aut", "cre"), email = "russell.pierce@zapier.com")
+  person("Russell", "Pierce", role = c("aut", "cre"), email = "russell.s.pierce@gmail.com")
   )
 Description: Provides a near drop-in replacement for Sys.sleep that allows more types of input
     to produce delays in the execution of code and silences/prevents typical sources of error.

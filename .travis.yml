@@ -4,6 +4,12 @@ language: R
 sudo: false
 cache: packages
 
+language: r
+r:
+  - oldrel
+  - release
+  - devel
+
 r_github_packages:
   - jimhester/covr
 
