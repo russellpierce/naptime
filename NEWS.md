@@ -1,4 +1,4 @@
-# naptime 0.1.3.0000
+# naptime 1.0.0
 
 * Initial CRAN Submission
 * 100% Code Coverage
