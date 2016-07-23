@@ -37,8 +37,14 @@ NULL; A side effect of a pause in program execution
 \description{
 Acceptable inputs:
 \itemize{
- \item \code{numeric} Time in seconds
- \item \code{Period} Any positive time difference, converts dynamically to seconds
+ \item numeric: time in seconds to nap
+ \item NULL: nap for default duration
+ \item POSIXct: time at which the nap should stop (UTC timezone expected)
+ \item Period: time from now at which the nap should stop
+ \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be UTC
+ \item difftime: difference in time to nap
+ \item logical: nap for default duration
+ \item generic: nap for default duration
 }
 }
 \examples{

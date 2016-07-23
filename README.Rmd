@@ -1,14 +1,7 @@
 ---
-title: "naptime: A Robust Flexible Sys.sleep Replacement"
-author: "Timothy Gann & Russell S. Pierce"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{naptime: A Robust Flexible Sys.sleep Replacement}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: github_document
 ---
-
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -19,8 +12,12 @@ library(naptime)
 library(lubridate)
 ```
 # naptime: A Robust Flexible Sys.sleep Replacement
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](http://cran.r-project.org/package=naptime)
+[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
 
-## Why should I use it?
+# Why should I use it?
 
 The premise of naptime is two fold.  
 
@@ -31,15 +28,15 @@ In response to these considerations `naptime::naptime()` either sleeps for the s
 
 The one notable exception to identical behavior is the input value of `Inf`.  `base::Sys.sleep()` will sleep indefiniately in reponse to `Inf`.  In contrast, `naptime::naptime()` will sleep the default duration.
 
-## How do I use it?
+# How do I use it?
 
-### Options
+## Options
 All options are set via `base::options()`.
 
 * `naptime.default_delay`.  If left unchanged, the default delay is `.1` seconds.
 * `naptime.warnings`.  If left unchanged, the default is `TRUE`, to show warnings.
 
-### Polymorphic inputs
+# Polymorphic inputs
 naptime() accepts a wide variety of inputs.
 
 * Polymorphism for:
@@ -82,12 +79,13 @@ In addition, naptime will handle some specific errors:
 * All non-finite intervals will be converted to a default delay
 * All inputs that produce an error will be converted to a default delay
 
-## How do I get it?
+# How do I get it?
 ```
 library(devtools)
 install_github("drknexus/naptime")
 library(naptime)
 ```
 
-## Author's Note
+# Author's Note
 The initial draft of this code was written by Timothy Gann under a spec drafted by Russell Pierce.  Many improvements and bug fixes to the original code, all packaging, and all tests were written by Russell Pierce.  Russell Pierce is the current maintainer and responsible party for this package.
+

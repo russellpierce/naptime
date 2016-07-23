@@ -4,9 +4,9 @@ test_that("test of numeric dispatch", {
   test1 <- system.time(naptime(1))[["elapsed"]]
   expect_gte(test1, 1)
   expect_lte(test1, 2)
-  test2 <- system.time(naptime(1L))[["elapsed"]]
-  expect_gte(test2, 1)
-  expect_lte(test2, 2)
+  test2 <- system.time(naptime(2L))[["elapsed"]]
+  expect_gte(test2, 2)
+  expect_lte(test2, 3)
   expect_warning(naptime(Inf))
   expect_warning(naptime(-10))
   # Disable warnings
@@ -110,4 +110,8 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
     )[["elapsed"]]
   expect_gte(pos_period_test, 1)
   expect_lte(pos_period_test, 3)
+})
+
+test_that("generic warning", {
+  expect_warning(naptime(glm(rnorm(5) ~ rnorm(5))))
 })
