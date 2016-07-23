@@ -25,7 +25,7 @@ setGeneric("naptime",
              tryCatch(
               standardGeneric("naptime")
               , error = function(e) {
-                warning("unhandled input for naptime: ", as.character(e), "; sleeping for default duration")
+                nap_warn("unhandled input for naptime: ", as.character(e), "; sleeping for default duration")
                 nap_default()
               }
              )
@@ -38,7 +38,7 @@ setMethod("naptime", signature("numeric"),
             if (is.finite(time) && time >= 0)
               Sys.sleep(time)
             else {
-              warning('Non-finite or negative time passed to naptime(), sleeping for .Options$naptime.default_delay seconds.')
+              nap_warn('Non-finite or negative time passed to naptime(), sleeping for .Options$naptime.default_delay seconds.')
               nap_default()
             }
           })
@@ -49,7 +49,7 @@ setMethod("naptime", signature("Period"),
           {
             t <- lubridate::period_to_seconds(time)
             if (t < 0) {
-              warning('Time interval is less than zero, sleeping for .Options$naptime.default_delay seconds.')
+              nap_warn('Time interval is less than zero, sleeping for .Options$naptime.default_delay seconds.')
               t <- getOption("naptime.default_delay")
             }
             Sys.sleep(t)
@@ -69,7 +69,7 @@ setMethod("naptime", signature("difftime"),
           {
             t <- as.numeric(time)
             if (t < 0) {
-              warning('Time interval is less than zero.')
+              nap_warn('Time interval is less than zero.')
               t <- 0
             }
             Sys.sleep(t)
@@ -79,7 +79,7 @@ setMethod("naptime", signature("difftime"),
 setMethod("naptime", signature("logical"),
           function(time)
           {
-            warning('Logical passed to naptime(), sleeping for 0 seconds.')
+            nap_warn('Logical passed to naptime(), sleeping for 0 seconds.')
             nap_default()
           })
 
@@ -87,7 +87,7 @@ setMethod("naptime", signature("logical"),
 setMethod("naptime", signature("NULL"),
           function(time)
           {
-            warning('NULL passed to naptime(), sleeping for .Options$naptime.default_delay seconds.')
+            nap_warn('NULL passed to naptime(), sleeping for .Options$naptime.default_delay seconds.')
             nap_default()
           })
 
@@ -95,15 +95,14 @@ setMethod("naptime", signature("NULL"),
 setMethod("naptime", signature("character"),
           function(time)
           {
-            browser()
             if (nchar(time) >= 19) {
               time_parsed <- try(lubridate::ymd_hms(time), silent = TRUE)
             } else {
               #undocumented functionality
-              time_parsed <- try(as.POSIXlt(lubridate::ymd(time)), silent = TRUE)
+              time_parsed <- suppressWarnings(try(as.POSIXlt(lubridate::ymd(time)), silent = TRUE))
             }
-            if ("try-error" %in% class(time_parsed)) {
-              warning("Could not parse ", time, " as time, sleeping for .Options$naptime.default_delay seconds.")
+            if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
+              nap_warn("Could not parse ", time, " as time, sleeping for .Options$naptime.default_delay seconds.")
               t <- nap_default()
             } else {
               # we don't actually respect timezones in the current version, everything is assumed to be in UTC

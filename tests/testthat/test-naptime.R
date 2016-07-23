@@ -9,6 +9,11 @@ test_that("test of numeric dispatch", {
   expect_lte(test2, 2)
   expect_warning(naptime(Inf))
   expect_warning(naptime(-10))
+  # Disable warnings
+  options(naptime.warnings = FALSE)
+  expect_silent(naptime(Inf))
+  expect_silent(naptime(-10))
+  options(naptime.warnings = TRUE)
   inf_test <- system.time(naptime(Inf))[["elapsed"]]
   neg_test <- system.time(naptime(-10))[["elapsed"]]
   expect_gte(inf_test, 0)

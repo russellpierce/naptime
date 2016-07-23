@@ -17,7 +17,7 @@ The one notable exception to identical behavior is the input value of `Inf`.  `b
 All options are set via base::options().
 
 * `naptime.default_delay`.  If left unchanged, the default delay is `.1` seconds.
-* `naptime.warnings`.  **This feature not yet available**.  If left unchanged, the default is `TRUE`, to show warnings.
+* `naptime.warnings`.  If left unchanged, the default is `TRUE`, to show warnings.
 
 # Polymorphic inputs
 naptime() accepts a wide variety of inputs.  If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues).
