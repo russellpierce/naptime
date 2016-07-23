@@ -93,7 +93,7 @@ test_that("period dispatch", {
 test_that("negative period handling", {
   expect_warning(neg_period_test <- system.time(naptime(lubridate::seconds(-1)))[["elapsed"]])
   expect_gte(neg_period_test, 0)
-  expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1))
+  expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1) + 1)
 })
 
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
@@ -101,7 +101,7 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
       naptime(as.character(lubridate::now() + lubridate::seconds(-1)))
     )[["elapsed"]])
   expect_gte(neg_period_test, 0)
-  expect_lt(neg_period_test, getOption("naptime.default_delay", 0.1))
+  expect_lt(neg_period_test, getOption("naptime.default_delay", 0.1) + 1)
 })
 
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
