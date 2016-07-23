@@ -39,7 +39,7 @@ Acceptable inputs:
 \itemize{
  \item numeric: time in seconds to nap
  \item NULL: nap for default duration
- \item POSIXct: time at which the nap should stop (UTC timezone expected)
+ \item POSIXct: time at which the nap should stop  (timezone is respected)
  \item Period: time from now at which the nap should stop
  \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be UTC
  \item difftime: difference in time to nap
