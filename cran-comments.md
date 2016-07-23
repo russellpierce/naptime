@@ -1,12 +1,15 @@
 ## Test environments
 * local OS X install, R 3.3.0
+* local OS Windows 8 x86_64
+ * R 3.2.2
+ * R Under development (unstable) 2016-07-22 r70959
 * travis-ci
+ * Platform: x86_64-pc-linux-gnu (64-bit) / Ubuntu precise (12.04.5 LTS)
  * R version 3.3.1 (2016-06-21)
  * and R version 3.2.5 (2016-04-14)
  * and R Under development (unstable) (2016-07-22 r70959)
- * Platform: x86_64-pc-linux-gnu (64-bit)
- * Running under: Ubuntu precise (12.04.5 LTS)
-* win-builder (devel and release)
+ 
+NOTE: win-builder _not_ used becasue the code was (as far as I can tell) spuriously failing tests related to the production of warning messages.  I was not able to replicate the problem locally.
 
 ## R CMD check results
 0 errors | 0 warnings | 0 notes
