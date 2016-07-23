@@ -28,6 +28,12 @@ test_that("test of difftime dispatch", {
   expect_lte(difftime_test, 2)
 })
 
+test_that("test of POSIXct dispatch", {
+  ct_test <- system.time(naptime(as.POSIXct(lubridate::now()+lubridate::seconds(1))))[["elapsed"]]
+  expect_gte(difftime_test, 1)
+  expect_lte(difftime_test, 2)
+})
+
 test_that("test of difftime error conditions", {
   difftime_test <- system.time(naptime(difftime("2016-01-01 00:00:00", "2016-01-01 00:00:01")))[["elapsed"]]
   expect_gte(difftime_test, 0)
