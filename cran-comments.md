@@ -2,6 +2,8 @@
 * local OS X install, R 3.3.0
 * travis-ci
  * R version 3.3.1 (2016-06-21)
+ * and R version 3.2.5 (2016-04-14)
+ * and R Under development (unstable) (2016-07-22 r70959)
  * Platform: x86_64-pc-linux-gnu (64-bit)
  * Running under: Ubuntu precise (12.04.5 LTS)
 * win-builder (devel and release)
