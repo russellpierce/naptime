@@ -12,5 +12,8 @@
 0 errors | 0 warnings | 0 notes
 R CMD check succeeded
 
+## Other Issues
+The timing tests are deliberately loose to accommodate Windows machines.  The underlying sleep code is entirely base::Sys.sleep.  Any remaining issues would be related to the option for default sleep duration which are not adequately tested at this time, but are generally expected to be a low value feature.
+
 ## Downstream dependencies
 New submission.  There are no downstream dependencies.
