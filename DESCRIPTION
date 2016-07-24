@@ -22,3 +22,5 @@ Suggests:
     rmarkdown
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
+URL: https://github.com/drknexus/naptime
+BugReports: https://github.com/drknexus/naptime/issues
