@@ -2,6 +2,7 @@
 * local OS X install
  * R 3.3.0
  * R 3.3.1
+ * R 3.3.2
 * local OS Windows 8 x86_64
  * R 3.2.2
  * R Under development (unstable) 2016-07-22 r70959
