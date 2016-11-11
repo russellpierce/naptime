@@ -1,10 +1,10 @@
 ---
-title: "naptime: A Robust Flexible Sys.sleep Replacement"
+title: "naptime: A Robust Flexible Sys.sleep() Replacement"
 author: "Timothy Gann & Russell S. Pierce"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{naptime: A Robust Flexible Sys.sleep Replacement}
+  %\VignetteIndexEntry{naptime: A Robust Flexible Sys.sleep() Replacement}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
