@@ -9,6 +9,7 @@ r:
   - oldrel
   - release
   - devel
+  - 3.3.2
 
 r_github_packages:
   - jimhester/covr
