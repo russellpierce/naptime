@@ -1,3 +1,6 @@
+## Changelog For the 1.0.0 Release
+* Updated Sys.sleep to Sys.sleep() in the package title per Kurt Hornik
+
 ## Test environments
 * local OS X install
  * R 3.3.0
