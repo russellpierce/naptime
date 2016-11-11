@@ -14,11 +14,17 @@
  * R Under development (unstable) (2016-11-09 r71642)
 
 ## R CMD check results
+
+### Local
 0 errors | 0 warnings | 0 notes
 R CMD check succeeded
 
-Win-builder has the note `Possibly mis-spelled words in DESCRIPTION:
-  Sys (3:26)` referring to a function referenced in the description.
+### Win-builder
+`Possibly mis-spelled words in DESCRIPTION:
+  Sys (3:26)` referring to a function referenced in the description. Not an issue.
+  
+### CRAN Check
+A note because README.md references https://cran.r-project.org/package=naptime which isn't a valid URL yet.
 
 ## Downstream dependencies
 New submission.  There are no downstream dependencies.
