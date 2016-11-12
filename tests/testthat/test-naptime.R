@@ -105,10 +105,9 @@ test_that("negative period handling", {
 })
 
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
-  skip_on_os("windows")
   expect_warning(
   neg_period_test <- system.time(
-      naptime(as.character(lubridate::now() + lubridate::seconds(-1)))
+      naptime(as.character(lubridate::now(tzone = "UTC") + lubridate::seconds(-1)))
     )[["elapsed"]]
   )
   expect_gte(neg_period_test, 0)
