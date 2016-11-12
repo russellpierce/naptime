@@ -1,7 +1,6 @@
 context("Naptime core functionality")
 
 test_that("test of numeric dispatch", {
-  skip_on_os("windows")
   test1 <- system.time(naptime(5))[["elapsed"]]
   expect_gte(test1, 2)
   expect_lte(test1, 7)
@@ -95,7 +94,6 @@ test_that("period dispatch", {
 })
 
 test_that("negative period handling", {
-  skip_on_os("windows")
   neg_period_test <- system.time(naptime(lubridate::seconds(-1)))[["elapsed"]]
   expect_warning(neg_period_test <- system.time(naptime(lubridate::seconds(-1)))[["elapsed"]])
   expect_gte(neg_period_test, 0)
