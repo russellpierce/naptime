@@ -1,4 +1,11 @@
 ## Changelog For the 1.0.0 Release
+
+### Current Submission Attempt
+
+* Fixed testing problem with big thanks to Kurt Hornik for pointing exactly where the problem lay.
+
+### Previous Submission Attempts
+
 * Updated Sys.sleep to Sys.sleep() in the package title per Kurt Hornik
 
 ## Test environments
