@@ -115,7 +115,7 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
       naptime(as.character(lubridate::now() + lubridate::seconds(5)))
     )[["elapsed"]]
   expect_gte(pos_period_test, 3)
-  expect_lte(pos_period_test, 5)
+  expect_lte(pos_period_test, 7)
 })
 
 test_that("generic warning", {
