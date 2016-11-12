@@ -33,7 +33,7 @@ test_that("test of difftime dispatch", {
 })
 
 test_that("test of POSIXct dispatch", {
-  ct_test <- system.time(naptime(as.POSIXct(lubridate::now()+lubridate::seconds(5))))[["elapsed"]]
+  ct_test <- system.time(naptime(as.POSIXct(lubridate::now(tzone = "UTC")+lubridate::seconds(5))))[["elapsed"]]
   expect_gte(ct_test, 3)
   expect_lte(ct_test, 7)
 })
@@ -72,7 +72,6 @@ test_that("test of no_arg dispatch", {
 })
 
 test_that("non-time character produces warning, not an error", {
-  skip_on_os("windows")
   testval <- "boo"
   expect_warning(naptime(testval))
   non_time_test <- system.time(naptime(testval))[["elapsed"]]
@@ -81,7 +80,6 @@ test_that("non-time character produces warning, not an error", {
 })
 
 test_that("non-valid produces warning, not an error", {
-  skip_on_os("windows")
   testval <- pi
   class(testval) <- "bad-class"
   expect_warning(naptime(testval))
@@ -107,7 +105,7 @@ test_that("negative period handling", {
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
   expect_warning(
   neg_period_test <- system.time(
-      naptime(as.character(lubridate::now(tzone = "UTC") + lubridate::seconds(-1)))
+      naptime(as.character(lubridate::now() + lubridate::seconds(-1)))
     )[["elapsed"]]
   )
   expect_gte(neg_period_test, 0)
@@ -116,7 +114,7 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
 
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
   pos_period_test <- system.time(
-      naptime(as.character(lubridate::now(tzone = "UTC") + lubridate::seconds(5)))
+      naptime(as.character(lubridate::now() + lubridate::seconds(5)))
     )[["elapsed"]]
   expect_gte(pos_period_test, 3)
   expect_lte(pos_period_test, 5)

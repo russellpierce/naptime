@@ -50,15 +50,15 @@ naptime(NULL)
 ```
  * POSIXct: time at which the nap should stop (timezone is respected)
 ```{r}
-naptime(lubridate::now()+lubridate::seconds(1))
+naptime(lubridate::now(tzone = "UTC")+lubridate::seconds(1))
 ```
  * Period: time from now at which the nap should stop
 ```{r}
 naptime(lubridate::seconds(1))
 ```
- * character: ymd_hms at which nap should stop, time zone is assumed to be UTC
+ * character: ymd_hms at which nap should stop, time zone is assumed to be the local timezone if discoverable, otherwise UTC
 ```{r}
- naptime(as.character(lubridate::now(tzone = "UTC") + lubridate::seconds(1)))
+ naptime(as.character(lubridate::now() + lubridate::seconds(1)))
 ```
  * difftime: difference in time to nap
 ```{r}

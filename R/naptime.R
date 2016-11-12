@@ -6,7 +6,7 @@
 #'  \item NULL: nap for default duration
 #'  \item POSIXct: time at which the nap should stop  (timezone is respected)
 #'  \item Period: time from now at which the nap should stop
-#'  \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be UTC
+#'  \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms().
 #'  \item difftime: difference in time to nap
 #'  \item logical: nap for default duration
 #'  \item generic: nap for default duration
@@ -67,7 +67,7 @@ setMethod("naptime", signature("Period"),
 setMethod("naptime", signature("POSIXct"),
           function(time)
           {
-            t <- as.numeric(time) - as.numeric(lubridate::now(lubridate::tz(time)))
+            t <- as.numeric(time) - as.numeric(lubridate::now(tzone = lubridate::tz(time)))
             naptime(t)
           })
 
@@ -103,17 +103,14 @@ setMethod("naptime", signature("NULL"),
 setMethod("naptime", signature("character"),
           function(time)
           {
-            if (nchar(time) >= 19) {
-              time_parsed <- try(lubridate::ymd_hms(time), silent = TRUE)
-            } else {
-              #undocumented functionality
-              time_parsed <- suppressWarnings(try(as.POSIXlt(lubridate::ymd(time)), silent = TRUE))
+            time_zone <- ifelse(is.na(Sys.timezone()), "UTC", Sys.timezone())
+            if (nchar(time) >= 8) {
+              time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3), silent = TRUE)
             }
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
               nap_warn("Could not parse ", time, " as time, sleeping for .Options$naptime.default_delay seconds.")
               t <- nap_default()
             } else {
-              # we don't actually respect timezones in the current version, everything is assumed to be in UTC
               t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
             }
             naptime(t)

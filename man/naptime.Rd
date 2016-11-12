@@ -41,7 +41,7 @@ Acceptable inputs:
  \item NULL: nap for default duration
  \item POSIXct: time at which the nap should stop  (timezone is respected)
  \item Period: time from now at which the nap should stop
- \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be UTC
+ \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms().
  \item difftime: difference in time to nap
  \item logical: nap for default duration
  \item generic: nap for default duration
