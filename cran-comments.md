@@ -2,7 +2,7 @@
 
 ### Current Submission Attempt
 
-* Fixed testing problem with big thanks to Kurt Hornik for pointing exactly where the problem lay.
+* Fixed testing problems with thanks to Kurt Hornik and Uwe Ligges for guidance and patience.
 
 ### Previous Submission Attempts
 
