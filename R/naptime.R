@@ -106,6 +106,9 @@ setMethod("naptime", signature("character"),
             time_zone <- ifelse(is.na(Sys.timezone()), "UTC", Sys.timezone())
             if (nchar(time) >= 8) {
               time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3), silent = TRUE)
+            } else {
+              # Times that aren't at least 8 characters long do not have a reasonable chance of being parsable
+              time_parsed <- NA
             }
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
               nap_warn("Could not parse ", time, " as time, sleeping for .Options$naptime.default_delay seconds.")
