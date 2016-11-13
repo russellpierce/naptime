@@ -7,17 +7,22 @@ output:
   md_document:
     variant: markdown_github
 vignette: >
-  %\VignetteIndexEntry{How and Why to Nap}
+  %\VignetteIndexEntry{Why and How to Nap}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo = FALSE}
-# Uncomment for building github markdown
-# [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-# [![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
-# [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime)
-# [![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
+```{r, echo = FALSE, results='asis'}
+# Include badges only when making the github markdown
+library(knitr)
+if ("md_document" %in% rmarkdown::all_output_formats(knitr::current_input())) {
+  cat("
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime)
+[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
+      ")
+}
 ```
 
 ```{r, echo = FALSE, results = 'hide', message = FALSE}
@@ -53,6 +58,7 @@ All options are set via `base::options()`.
 naptime() accepts a wide variety of inputs.
 
 Polymorphism for:
+
  * numeric: time in seconds to nap
 ```{r}
 naptime(1)

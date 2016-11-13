@@ -26,53 +26,57 @@ All options are set via `base::options()`.
 
 naptime() accepts a wide variety of inputs.
 
-Polymorphism for: \* numeric: time in seconds to nap
+Polymorphism for:
+
+-   numeric: time in seconds to nap
 
 ``` r
 naptime(1)
+#> NULL
 ```
 
 -   NULL
 
 ``` r
 naptime(NULL)
-#> Warning in nap_warn("NULL passed to naptime(), sleeping for .Options
-#> $naptime.default_delay seconds."): NULL passed to naptime(), sleeping
-#> for .Options$naptime.default_delay seconds.
-#> [1] 0.1
+#> Warning: NULL passed to naptime(), sleeping for default duration
+#> NULL
 ```
 
 -   POSIXct: time at which the nap should stop (timezone is respected)
 
 ``` r
 naptime(lubridate::now(tzone = "UTC")+lubridate::seconds(1))
+#> NULL
 ```
 
 -   Period: time from now at which the nap should stop
 
 ``` r
 naptime(lubridate::seconds(1))
+#> NULL
 ```
 
--   character: ymd\_hms at which nap should stop, time zone is assumed to be device local
+-   character: ymd\_hms at which nap should stop, time zone is assumed to be device local. The hour, minute, and second do not need to be specified.
 
 ``` r
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))
+#> NULL
 ```
 
 -   difftime: difference in time to nap
 
 ``` r
 naptime(difftime(lubridate::now() + seconds(1), lubridate::now()))
+#> NULL
 ```
 
 -   logical: nap for default duration
 
 ``` r
 naptime(TRUE)
-#> Warning in nap_warn("Logical passed to naptime(), sleeping for 0
-#> seconds."): Logical passed to naptime(), sleeping for 0 seconds.
-#> [1] 0.1
+#> Warning: Logical passed to naptime(), sleeping for default duration
+#> NULL
 ```
 
 -   generic: nap for default duration
@@ -83,9 +87,9 @@ naptime(glm(rnorm(5) ~ rnorm(5)))
 #> on the right-hand side and was dropped
 #> Warning in model.matrix.default(mt, mf, contrasts): problem with term 1 in
 #> model.matrix: no columns are assigned
-#> Warning in nap_warn("unhandled input for naptime: ", as.character(e), "; sleeping for default duration"): unhandled input for naptime: Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'naptime' for signature '"glm"'
+#> Warning: unhandled input for naptime: Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'naptime' for signature '"glm"'
 #> ; sleeping for default duration
-#> [1] 0.1
+#> NULL
 ```
 
 If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues).
