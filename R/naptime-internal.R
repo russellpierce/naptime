@@ -4,3 +4,10 @@ nap_warn <- function(...) {
     warning(..., call. = FALSE)
   }
 }
+nap_error <- function(...) {
+ if (getOption("naptime.permissive", FALSE)) {
+   nap_warn(...)
+ } else {
+   stop(..., call. = FALSE)
+ }
+}
