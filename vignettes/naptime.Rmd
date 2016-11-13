@@ -4,6 +4,8 @@ author: "Russell S. Pierce & Timothy Gann"
 date: '`r Sys.Date()`'
 output:
   rmarkdown::html_vignette: default
+  md_document:
+    variant: markdown_github
 vignette: >
   %\VignetteIndexEntry{naptime: A Robust Flexible Sys.sleep() Replacement}
   %\VignetteEngine{knitr::rmarkdown}
