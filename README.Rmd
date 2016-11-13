@@ -1,15 +1,8 @@
 ---
-title: "naptime: A Robust Flexible Sys.sleep() Replacement"
-author: "Russell S. Pierce & Timothy Gann"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{naptime: A Robust Flexible Sys.sleep() Replacement}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: github_document
 ---
-
-```{r, echo = FALSE}
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+```{r, echo = FALSE, results='hide', message=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -18,9 +11,13 @@ knitr::opts_chunk$set(
 library(naptime)
 library(lubridate)
 ```
-# naptime: A Robust Flexible Sys.sleep Replacement
+# naptime: A Robust Flexible Sys.sleep() Replacement
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime)
+[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
 
-## Why should I use it?
+# Why should I use it?
 
 The premise of naptime is two fold.  
 
@@ -31,18 +28,18 @@ In response to these considerations `naptime::naptime()` either sleeps for the s
 
 The one notable exception to identical behavior is the input value of `Inf`.  `base::Sys.sleep()` will sleep indefiniately in reponse to `Inf`.  In contrast, `naptime::naptime()` will sleep the default duration.
 
-## How do I use it?
+# How do I use it?
 
-### Options
+## Options
 All options are set via `base::options()`.
 
 * `naptime.default_delay`.  If left unchanged, the default delay is `.1` seconds.
 * `naptime.warnings`.  If left unchanged, the default is `TRUE`, to show warnings.
 
-### Polymorphic inputs
+# Polymorphic inputs
 naptime() accepts a wide variety of inputs.
 
-* Polymorphism for:
+Polymorphism for:
  * numeric: time in seconds to nap
 ```{r}
 naptime(1)
@@ -59,35 +56,37 @@ naptime(lubridate::now(tzone = "UTC")+lubridate::seconds(1))
 ```{r}
 naptime(lubridate::seconds(1))
 ```
- * character: ymd_hms at which nap should stop, time zone is assumed to be device local
- ```{r}
+ * character: ymd_hms at which nap should stop, time zone is assumed to be the local timezone if discoverable, otherwise UTC
+```{r}
  naptime(as.character(lubridate::now() + lubridate::seconds(1)))
- ```
+```
  * difftime: difference in time to nap
- ```{r}
+```{r}
  naptime(difftime(lubridate::now() + seconds(1), lubridate::now()))
- ```
+```
  * logical: nap for default duration
 ```{r}
 naptime(TRUE)
 ```
  * generic: nap for default duration
- ```{r}
- naptime(glm(rnorm(5) ~ rnorm(5)))
- ```
+```{r}
+naptime(glm(rnorm(5) ~ rnorm(5)))
+```
 If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues).
 
 In addition, naptime will handle some specific errors:
+
 * All negative intervals will be converted to a delay of 0
 * All non-finite intervals will be converted to a default delay
 * All inputs that produce an error will be converted to a default delay
 
-## How do I get it?
+# How do I get it?
 ```
 library(devtools)
 install_github("drknexus/naptime")
 library(naptime)
 ```
 
-## Author's Note
+# Author's Note
 The initial draft of this code was written by Timothy Gann under a spec drafted by Russell Pierce.  Many improvements and bug fixes to the original code, all packaging, and all tests were written by Russell Pierce.  Russell Pierce is the current maintainer and responsible party for this package.
+

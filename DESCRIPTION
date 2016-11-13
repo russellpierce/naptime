@@ -1,13 +1,13 @@
 Package: naptime
 Type: Package
-Title: A Robust Flexible Sys.sleep Replacement
-Version: 0.1.2.0000
-Date: 2016-07-09
+Title: A Robust Flexible Sys.sleep() Replacement
+Version: 1.0.0
+Date: 2016-11-12
 Authors@R: c(
-  person("Timothy", "Gann", role = c("aut"), email = "timothy.gann@gmail.com"),
-  person("Russell", "Pierce", role = c("aut", "cre"), email = "russell.pierce@zapier.com")
+  person("Russell", "Pierce", role = c("aut", "cre"), email = "russell.s.pierce@gmail.com"),
+  person("Timothy", "Gann", role = c("aut"), email = "timothy.gann@gmail.com")
   )
-Description: Provides a near drop-in replacement for Sys.sleep that allows more types of input
+Description: Provides a near drop-in replacement for base::Sys.sleep() that allows more types of input
     to produce delays in the execution of code and silences/prevents typical sources of error.
 URL: https://github.com/drknexus/naptime
 BugReports: https://github.com/drknexus/naptime/issues
@@ -22,3 +22,5 @@ Suggests:
     rmarkdown
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
+URL: https://github.com/drknexus/naptime
+BugReports: https://github.com/drknexus/naptime/issues

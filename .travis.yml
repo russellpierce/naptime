@@ -4,6 +4,23 @@ language: R
 sudo: false
 cache: packages
 
+language: r
+
+before_install:
+- export TZ=Europe/Vienna
+
+#matrix: 3x Linux, 1x OS X
+matrix:
+  include:
+  - r: release
+  - r: oldrel
+  - r: devel
+  - r: 3.3.2
+  - os: osx
+    osx_image: xcode7.2
+    r: release
+    latex: false
+
 r_github_packages:
   - jimhester/covr
 
