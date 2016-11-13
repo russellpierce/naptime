@@ -8,6 +8,10 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime)
+[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -25,7 +29,7 @@ library(lubridate)
 The premise of naptime is two fold.  
 
 1. Delays in R code should never result in an error.
-2. Functions should accept multiple inputs types, but result in a single output type.  
+2. Functions should accept multiple inputs types, but result in a single output type or side-effect.  
 
 In response to these considerations `naptime::naptime()` either sleeps for the specified duration, or passes forward with a warning.  It has the same argument name as `base::Sys.sleep()` and a nearly identical behavior in response to numeric inputs.  As such, it can be nearly used as a drop-in replacement for `base::Sys.sleep()`.  
 
