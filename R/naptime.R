@@ -37,6 +37,7 @@ setGeneric("naptime",
                 nap_default()
               }
              )
+             return(NULL)
            })
 
 #' @rdname naptime
@@ -46,7 +47,7 @@ setMethod("naptime", signature("numeric"),
             if (is.finite(time) && time >= 0)
               Sys.sleep(time)
             else {
-              nap_warn('Non-finite or negative time passed to naptime(), sleeping for .Options$naptime.default_delay seconds.')
+              nap_warn('Non-finite or negative time passed to naptime(), sleeping for default duration')
               nap_default()
             }
           })
@@ -87,7 +88,7 @@ setMethod("naptime", signature("difftime"),
 setMethod("naptime", signature("logical"),
           function(time)
           {
-            nap_warn('Logical passed to naptime(), sleeping for 0 seconds.')
+            nap_warn('Logical passed to naptime(), sleeping for default duration')
             nap_default()
           })
 
@@ -95,7 +96,7 @@ setMethod("naptime", signature("logical"),
 setMethod("naptime", signature("NULL"),
           function(time)
           {
-            nap_warn('NULL passed to naptime(), sleeping for .Options$naptime.default_delay seconds.')
+            nap_warn('NULL passed to naptime(), sleeping for default duration')
             nap_default()
           })
 
@@ -106,12 +107,15 @@ setMethod("naptime", signature("character"),
             time_zone <- ifelse(is.na(Sys.timezone()), "UTC", Sys.timezone())
             if (nchar(time) >= 8) {
               time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3), silent = TRUE)
+            } else {
+              # Times that aren't at least 8 characters long do not have a reasonable chance of being parsable
+              time_parsed <- NA
             }
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
-              nap_warn("Could not parse ", time, " as time, sleeping for .Options$naptime.default_delay seconds.")
-              t <- nap_default()
+              nap_warn("Could not parse ", time, " as time, sleeping for default duration.")
+              nap_default()
             } else {
               t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
+              naptime(t)
             }
-            naptime(t)
           })
