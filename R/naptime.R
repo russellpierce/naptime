@@ -107,7 +107,7 @@ setMethod("naptime", signature("logical"),
               if (isTRUE(!time)) {
                 NULL
               } else {
-                nap_error("Logical provided to naptime() is not TRUE or FALSE.")
+                nap_error("Logical provided to naptime() is not TRUE or FALSE.", permissive = permissive)
                 nap_default()
               }
             }
@@ -133,7 +133,7 @@ setMethod("naptime", signature("character"),
               time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3), silent = TRUE)
             }
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
-              nap_error("Could not parse '", time, "' as time")
+              nap_error("Could not parse '", time, "' as time", permissive = permissive)
               nap_default()
             } else {
               t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
