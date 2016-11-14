@@ -1,3 +1,8 @@
+2016-11-13  Russell S. Pierce  <russell.s.pierce@gmail.com>
+* Overhauled naptime:::nap_warn() to incorporate a (suggestion)[https://github.com/drknexus/naptime/issues/5] by Hadley Wickham
+* Formatting tweaks and rebuild for vignette
+* Fixed bug for difftime where there was an assumption that the units were in seconds
+
 2016-11-12  Russell S. Pierce  <russell.s.pierce@gmail.com>
 * Fail as expected for non-standard character input when character count is below 8.  This change restores code coverage to 100%
 * Corrected issues in the github description and/or vignette and standardized the location so there is only one version of the expository text.

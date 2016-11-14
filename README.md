@@ -3,17 +3,44 @@
 Why should I use it?
 --------------------
 
-The premise of naptime is two fold.
+naptime makes delaying code execution in R more flexible and robust. It makes delaying code execution more flexible by supporting more data types than `base::Sys.sleep()`. It makes delaying code more robust by allowing errors in the delay specification to throw warnings instead of errors. Most notably, because naptime supports more input data types, you can use package:lubridate functions in conjunction with naptime to yield human readable time delays and intervals.
 
-1.  Delays in R code should never result in an error.
-2.  Functions should accept multiple inputs types, but result in a single output type or side-effect.
+Consider the case of waiting one hour:
 
-In response to these considerations `naptime::naptime()` either sleeps for the specified duration, or passes forward with a warning. It has the same argument name as `base::Sys.sleep()` and a nearly identical behavior in response to numeric inputs. As such, it can be nearly used as a drop-in replacement for `base::Sys.sleep()`.
+    Sys.sleep(3600)
 
-The one notable exception to identical behavior is the input value of `Inf`. `base::Sys.sleep()` will sleep indefiniately in reponse to `Inf`. In contrast, `naptime::naptime()` will sleep the default duration.
+    # versus
+
+    naptime(lubridate::hours(1))
+
+Consider the case of wanting to start processing every hour for a job of an indeterminate duration:
+
+    repeat{
+      start_time <- lubridate::now()
+      # Do processing
+      sleep_duration <- 3600 - as.numeric(lubridate::now() - start_time)
+      if (sleep_duration > 0) {
+        Sys.sleep(sleep_duration)
+      }
+    }
+
+    # versus
+
+    repeat{
+      start_time <- lubridate::now()
+      # Do processing
+      naptime(start_time + hours(1))
+    }
 
 How do I use it?
 ----------------
+
+Because `naptime()` has nearly identical arguments and behavior as `base::Sys.sleep()` in response to numeric inputs, it can be nearly used as a drop-in replacement for `base::Sys.sleep()`.
+
+There are two notable differences in the behavior of Sys.sleep() and naptime():
+
+-   For the input value of `Inf` `base::Sys.sleep()` will sleep indefinitely. In contrast, `naptime::naptime()` will produce an error (or if `naptime.permissive = TRUE` is set pause the default duration).
+-   For a negative input value `base::Sys.sleep()` will produce an error. In contrast, `naptime::naptime()` will assume that the period of delay has already elapsed and move forward without further delay.
 
 ### Options
 
@@ -21,76 +48,79 @@ All options are set via `base::options()`.
 
 -   `naptime.default_delay`. If left unchanged, the default delay is `.1` seconds.
 -   `naptime.warnings`. If left unchanged, the default is `TRUE`, to show warnings.
+-   `naptime.permissive`. If left unchanged, the default is `FALSE`, to trigger errors on inputs that couldn't be converted into something sensible. If set TRUE, inputs that couldn't be converted into something sensible will result in a default delay.
 
 ### Polymorphic inputs
 
 naptime() accepts a wide variety of inputs.
 
-Polymorphism for: \* numeric: time in seconds to nap
+Polymorphism for:
+
+-   numeric: time in seconds to nap
 
 ``` r
 naptime(1)
-```
-
--   NULL
-
-``` r
-naptime(NULL)
-#> Warning in nap_warn("NULL passed to naptime(), sleeping for .Options
-#> $naptime.default_delay seconds."): NULL passed to naptime(), sleeping
-#> for .Options$naptime.default_delay seconds.
-#> [1] 0.1
+#> NULL
 ```
 
 -   POSIXct: time at which the nap should stop (timezone is respected)
 
 ``` r
 naptime(lubridate::now(tzone = "UTC")+lubridate::seconds(1))
+#> NULL
 ```
 
 -   Period: time from now at which the nap should stop
 
 ``` r
 naptime(lubridate::seconds(1))
+#> NULL
 ```
 
--   character: ymd\_hms at which nap should stop, time zone is assumed to be device local
+-   character: A single character string formatted YYYY-MM-DD HH:MM:SS at which the nap should stop. The time zone is assumed to be device local. The hour, minute, and second do not need to be specified.
 
 ``` r
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))
+#> NULL
 ```
 
 -   difftime: difference in time to nap
 
 ``` r
-naptime(difftime(lubridate::now() + seconds(1), lubridate::now()))
+naptime(difftime(lubridate::now() + lubridate::seconds(1), lubridate::now()))
+#> NULL
 ```
 
--   logical: nap for default duration
+-   logical: nap for default duration if TRUE, skip nap if FALSE
 
 ``` r
 naptime(TRUE)
-#> Warning in nap_warn("Logical passed to naptime(), sleeping for 0
-#> seconds."): Logical passed to naptime(), sleeping for 0 seconds.
-#> [1] 0.1
+#> NULL
 ```
 
--   generic: nap for default duration
+-   NULL; meaning no delay
 
 ``` r
-naptime(glm(rnorm(5) ~ rnorm(5)))
-#> Warning in model.matrix.default(mt, mf, contrasts): the response appeared
-#> on the right-hand side and was dropped
-#> Warning in model.matrix.default(mt, mf, contrasts): problem with term 1 in
-#> model.matrix: no columns are assigned
-#> Warning in nap_warn("unhandled input for naptime: ", as.character(e), "; sleeping for default duration"): unhandled input for naptime: Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'naptime' for signature '"glm"'
-#> ; sleeping for default duration
-#> [1] 0.1
+naptime(NULL)
+#> NULL
 ```
 
-If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues).
+-   generic: By default this produces an error, however, you can set `naptime.permissive` as an option (or argument) that will cause this to nap for default duration instead.
 
-In addition, naptime will handle some specific errors: \* All negative intervals will be converted to a delay of 0 \* All non-finite intervals will be converted to a default delay \* All inputs that produce an error will be converted to a default delay
+``` r
+naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE)
+#> Warning: The time paramater was not scalar (length equal to 1)
+#> Warning: unhandled input for naptime(): Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'naptime' for signature '"list"'
+#> NULL
+options(naptime.permissive = TRUE)
+naptime(glm(rnorm(5) ~ runif(5)))
+#> Warning: The time paramater was not scalar (length equal to 1)
+
+#> Warning: unhandled input for naptime(): Error in (function (classes, fdef, mtable) : unable to find an inherited method for function 'naptime' for signature '"list"'
+#> NULL
+```
+
+If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues) or PR in which you resolve the shortcoming.
 
 How do I get it?
 ----------------

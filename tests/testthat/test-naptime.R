@@ -7,20 +7,20 @@ test_that("test of numeric dispatch", {
   test2 <- system.time(naptime(5L))[["elapsed"]]
   expect_gte(test2, 2)
   expect_lte(test2, 7)
-  expect_warning(naptime(Inf))
-  expect_warning(naptime(-10))
-  inf_test <- system.time(naptime(Inf))[["elapsed"]]
-  neg_test <- system.time(naptime(-10))[["elapsed"]]
+  inf_test <- system.time(expect_error(naptime(Inf)))[["elapsed"]]
+  inf_test <- system.time(expect_warning(naptime(Inf, permissive = TRUE)))[["elapsed"]]
+  neg_test <- system.time(expect_warning(naptime(-10)))[["elapsed"]]
   expect_gte(inf_test, 0)
   expect_lte(inf_test, 2)
   expect_gte(neg_test, 0)
   expect_lte(neg_test, 2)
+  expect_error(naptime(c(1,2)))
 })
 
 test_that("numeric dispatch warnings can be disabled", {
   # Disable warnings
   options(naptime.warnings = FALSE)
-  expect_silent(naptime(Inf))
+  expect_silent(naptime(Inf, permissive = TRUE))
   expect_silent(naptime(-10))
   options(naptime.warnings = TRUE)
 })
@@ -38,7 +38,7 @@ test_that("test of POSIXct dispatch", {
 })
 
 test_that("test of difftime error conditions", {
-  difftime_test <- system.time(naptime(difftime("2016-01-01 00:00:00", "2016-01-01 00:00:05")))[["elapsed"]]
+  difftime_test <- system.time(expect_warning(naptime(difftime("2016-01-01 00:00:00", "2016-01-01 00:00:05"))))[["elapsed"]]
   expect_gte(difftime_test, 0)
   expect_lte(difftime_test, 3)
 })
@@ -50,9 +50,12 @@ test_that("test of NULL dispatch", {
 })
 
 test_that("test of NA dispatch", {
-  na_test <- system.time(naptime(NA))[["elapsed"]]
+  expect_error(naptime(NA, permissive = FALSE))
+  na_test <- system.time(expect_warning(naptime(NA, permissive = TRUE)))[["elapsed"]]
   expect_gte(na_test, 0)
   expect_lte(na_test, 3)
+  expect_error(naptime(NA_character_))
+  expect_warning(naptime(NA_character_, permissive = TRUE))
 })
 
 test_that("test of logical dispatch", {
@@ -62,6 +65,8 @@ test_that("test of logical dispatch", {
   false_test <- system.time(naptime(FALSE))[["elapsed"]]
   expect_gte(false_test, 0)
   expect_lte(false_test, 3)
+  expect_error(naptime(logical(0)))
+  expect_warning(naptime(logical(0), permissive = TRUE))
 })
 
 test_that("test of no_arg dispatch", {
@@ -72,8 +77,13 @@ test_that("test of no_arg dispatch", {
 
 test_that("non-time character produces warning, not an error", {
   testval <- "boo"
-  expect_warning(naptime(testval))
-  non_time_test <- system.time(naptime(testval))[["elapsed"]]
+  expect_error(naptime(testval))
+  expect_warning(naptime(testval, permissive = TRUE))
+
+  testval <- "really long scary text string"
+  expect_error(naptime(testval))
+  expect_warning(naptime(testval, permissive = TRUE))
+  non_time_test <- system.time(naptime(testval, permissive = TRUE))[["elapsed"]]
   expect_gte(non_time_test, 0)
   expect_lte(non_time_test, 3)
 })
@@ -81,8 +91,9 @@ test_that("non-time character produces warning, not an error", {
 test_that("non-valid produces warning, not an error", {
   testval <- pi
   class(testval) <- "bad-class"
-  expect_warning(naptime(testval))
-  non_class_test <- system.time(naptime(testval))[["elapsed"]]
+  expect_error(naptime(testval))
+  expect_warning(naptime(testval, permissive = TRUE))
+  non_class_test <- system.time(naptime(testval, permissive = TRUE))[["elapsed"]]
   expect_gte(non_class_test, 0)
   expect_lte(non_class_test, 3)
 })
@@ -118,6 +129,23 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
   expect_lte(pos_period_test, 7)
 })
 
-test_that("generic warning", {
-  expect_warning(naptime(glm(rnorm(5) ~ rnorm(5))))
+test_that("generic stop", {
+  expect_error(naptime(glm(rnorm(5) ~ rnorm(5))))
+})
+
+
+test_that("generic warning if permissive", {
+  options(naptime.permissive = FALSE)
+  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
+  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
+
+  options(naptime.permissive = TRUE)
+  expect_warning(naptime(glm(rnorm(5) ~ runif(5))))
+  expect_error(naptime(glm(rnorm(5) ~ runif(5)), permissive = FALSE))
+})
+
+test_that("zero length custom class produces a warning", {
+  boo <- integer(0)
+  class(boo) <- "moo"
+  expect_warning(naptime(boo))
 })
