@@ -12,24 +12,34 @@
 \alias{naptime,numeric-method}
 \title{Safe sleep function}
 \usage{
-naptime(time)
+naptime(time, permissive = getOption("naptime.permissive",
+  permissive_default))
 
-\S4method{naptime}{numeric}(time)
+\S4method{naptime}{numeric}(time, permissive = getOption("naptime.permissive",
+  permissive_default))
 
-\S4method{naptime}{Period}(time)
+\S4method{naptime}{Period}(time, permissive = getOption("naptime.permissive",
+  permissive_default))
 
-\S4method{naptime}{POSIXct}(time)
+\S4method{naptime}{POSIXct}(time, permissive = getOption("naptime.permissive",
+  permissive_default))
 
-\S4method{naptime}{difftime}(time)
+\S4method{naptime}{difftime}(time,
+  permissive = getOption("naptime.permissive", permissive_default))
 
-\S4method{naptime}{logical}(time)
+\S4method{naptime}{logical}(time, permissive = getOption("naptime.permissive",
+  permissive_default))
 
-\S4method{naptime}{`NULL`}(time)
+\S4method{naptime}{`NULL`}(time, permissive = getOption("naptime.permissive",
+  permissive_default))
 
-\S4method{naptime}{character}(time)
+\S4method{naptime}{character}(time,
+  permissive = getOption("naptime.permissive", permissive_default))
 }
 \arguments{
 \item{time}{Time to sleep, polymorphic type inputs, leaning towards units as 'seconds'}
+
+\item{permissive}{An optional argument to override the \code{naptime.permissive option} for this call of the naptime function}
 }
 \value{
 NULL; A side effect of a pause in program execution
@@ -38,14 +48,18 @@ NULL; A side effect of a pause in program execution
 Acceptable inputs:
 \itemize{
  \item numeric: time in seconds to nap
- \item NULL: nap for default duration
  \item POSIXct: time at which the nap should stop  (timezone is respected)
- \item Period: time from now at which the nap should stop
  \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms().
+ \item Period: time from now at which the nap should stop
  \item difftime: difference in time to nap
- \item logical: nap for default duration
- \item generic: nap for default duration
+ \item logical: If TRUE, nap for default duration, otherwise don't nap.
+ \item NULL: don't nap
+ \item generic: error or nap for default duration depending on the option naptime.permissive
 }
+}
+\details{
+The default duration is set with a numeric for the option \code{naptime.default_delay} in seconds (default: 0.1)
+Whether a generic input is accepted is determined by the option \code{naptime.permissive} (default: FALSE)
 }
 \examples{
 \dontrun{
