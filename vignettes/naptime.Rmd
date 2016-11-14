@@ -71,11 +71,11 @@ repeat{
 
 ## How do I use it?
 
-Because `naptime()` has nearly identicial arguments and behavior as `base::Sys.sleep()` in response to numeric inputs,  it can be nearly used as a drop-in replacement for `base::Sys.sleep()`.  
+Because `naptime()` has nearly identical arguments and behavior as `base::Sys.sleep()` in response to numeric inputs,  it can be nearly used as a drop-in replacement for `base::Sys.sleep()`.  
 
 There are two notable differences in the behavior of Sys.sleep() and naptime():
 
-* For the input value of `Inf` `base::Sys.sleep()` will sleep indefiniately.  In contrast, `naptime::naptime()` will produce an error (or if `naptime.permissive = TRUE` is set pause the default duration).
+* For the input value of `Inf` `base::Sys.sleep()` will sleep indefinitely.  In contrast, `naptime::naptime()` will produce an error (or if `naptime.permissive = TRUE` is set pause the default duration).
 * For a negative input value `base::Sys.sleep()` will produce an error.  In contrast, `naptime::naptime()` will assume that the period of delay has already elapsed and move forward without further delay.
 
 ### Options

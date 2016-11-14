@@ -2,7 +2,7 @@
 
 ## Behavior changes
 
-* Per [request](https://github.com/drknexus/naptime/issues/6) naptime is now quite a bit more discerning by default.  If the argument provided isn't interpretable, it will thrown an error.  The old permissive behavior that produces warnings and default delays can be more or less restored by setting the option `naptime.permissive` to TRUE.
+* Per [request](https://github.com/drknexus/naptime/issues/6) naptime is now quite a bit more discerning by default.  If the argument provided isn't interpretable, it will thrown as an error.  The old permissive behavior that produces warnings and default delays can be more or less restored by setting the option `naptime.permissive` to TRUE or setting the permissive parameter as TRUE on any given naptime call (parameter overrides the option)
 * Logicals no longer produce a warning.  Logical FALSE is interpreted as meaning 'no delay' and TRUE is interpreted as meaning default delay.
 * Calling naptime with a NULL no longer produces a delay or warning as this is interpreted as meaning 'no delay'.
 
