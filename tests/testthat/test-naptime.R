@@ -55,6 +55,7 @@ test_that("test of NA dispatch", {
   expect_gte(na_test, 0)
   expect_lte(na_test, 3)
   expect_error(naptime(NA_character_))
+  expect_warning(naptime(NA_character_, permissive = TRUE))
 })
 
 test_that("test of logical dispatch", {
@@ -65,6 +66,7 @@ test_that("test of logical dispatch", {
   expect_gte(false_test, 0)
   expect_lte(false_test, 3)
   expect_error(naptime(logical(0)))
+  expect_warning(naptime(logical(0), permissive = TRUE))
 })
 
 test_that("test of no_arg dispatch", {
@@ -75,6 +77,10 @@ test_that("test of no_arg dispatch", {
 
 test_that("non-time character produces warning, not an error", {
   testval <- "boo"
+  expect_error(naptime(testval))
+  expect_warning(naptime(testval, permissive = TRUE))
+
+  testval <- "really long scary text string"
   expect_error(naptime(testval))
   expect_warning(naptime(testval, permissive = TRUE))
   non_time_test <- system.time(naptime(testval, permissive = TRUE))[["elapsed"]]
@@ -136,4 +142,10 @@ test_that("generic warning if permissive", {
   options(naptime.permissive = TRUE)
   expect_warning(naptime(glm(rnorm(5) ~ runif(5))))
   expect_error(naptime(glm(rnorm(5) ~ runif(5)), permissive = FALSE))
+})
+
+test_that("zero length custom class produces a warning", {
+  boo <- integer(0)
+  class(boo) <- "moo"
+  expect_warning(naptime(boo))
 })
