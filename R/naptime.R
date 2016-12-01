@@ -130,7 +130,7 @@ setMethod("naptime", signature("character"),
               # Times that aren't at least 8 characters long do not have a reasonable chance of being parsable
               time_parsed <- NA
             } else if (num_char >= 8) {
-              time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3), silent = TRUE)
+              time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3, quiet = TRUE), silent = TRUE)
             }
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
