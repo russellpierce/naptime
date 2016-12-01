@@ -1,3 +1,5 @@
+2016-11-30  Russell S. Pierce  <russell.s.pierce@gmail.com>
+* Cleaned up tests
 2016-11-13  Russell S. Pierce  <russell.s.pierce@gmail.com>
 * Overhauled naptime:::nap_warn() to incorporate a (suggestion)[https://github.com/drknexus/naptime/issues/5] by Hadley Wickham
 * Formatting tweaks and rebuild for vignette
