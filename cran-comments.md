@@ -1,4 +1,4 @@
-## Changelog For the 1.2.0 Release
+## Naptime 1.2.0 Release
 
 ## Test environments
 * local OS X install
