@@ -2,6 +2,10 @@
 
 Formatting changes for CRAN deploy. Refer to naptime 1.1.0 NEWS for changes since the last CRAN version.
 
+## Behavior changes
+
+* lubridate parse warnings squelched
+
 # naptime 1.1.0
 
 ## Behavior changes
