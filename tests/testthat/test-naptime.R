@@ -2,11 +2,11 @@ context("Naptime core functionality")
 
 test_that("test of numeric dispatch", {
   test1 <- system.time(naptime(5))[["elapsed"]]
-  expect_gte(test1, 2)
-  expect_lte(test1, 7)
+  expect_gte(test1, 4)
+  expect_lte(test1, 6)
   test2 <- system.time(naptime(5L))[["elapsed"]]
-  expect_gte(test2, 2)
-  expect_lte(test2, 7)
+  expect_gte(test2, 4)
+  expect_lte(test2, 6)
   inf_test <- system.time(expect_error(naptime(Inf)))[["elapsed"]]
   inf_test <- system.time(expect_warning(naptime(Inf, permissive = TRUE)))[["elapsed"]]
   neg_test <- system.time(expect_warning(naptime(-10)))[["elapsed"]]
