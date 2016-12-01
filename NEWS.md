@@ -1,3 +1,7 @@
+# naptime 1.2.0
+
+Formatting changes for CRAN deploy. Refer to naptime 1.1.0 NEWS for changes since the last CRAN version.
+
 # naptime 1.1.0
 
 ## Behavior changes
