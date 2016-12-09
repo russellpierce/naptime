@@ -2,11 +2,11 @@ context("Naptime core functionality")
 
 test_that("test of numeric dispatch", {
   test1 <- system.time(naptime(5))[["elapsed"]]
-  expect_gte(test1, 2)
-  expect_lte(test1, 7)
+  expect_gte(test1, 4)
+  expect_lte(test1, 6)
   test2 <- system.time(naptime(5L))[["elapsed"]]
-  expect_gte(test2, 2)
-  expect_lte(test2, 7)
+  expect_gte(test2, 4)
+  expect_lte(test2, 6)
   inf_test <- system.time(expect_error(naptime(Inf)))[["elapsed"]]
   inf_test <- system.time(expect_warning(naptime(Inf, permissive = TRUE)))[["elapsed"]]
   neg_test <- system.time(expect_warning(naptime(-10)))[["elapsed"]]
@@ -83,7 +83,7 @@ test_that("non-time character produces warning, not an error", {
   testval <- "really long scary text string"
   expect_error(naptime(testval))
   expect_warning(naptime(testval, permissive = TRUE))
-  non_time_test <- system.time(naptime(testval, permissive = TRUE))[["elapsed"]]
+  non_time_test <- system.time(expect_warning(naptime(testval, permissive = TRUE)))[["elapsed"]]
   expect_gte(non_time_test, 0)
   expect_lte(non_time_test, 3)
 })
@@ -93,7 +93,7 @@ test_that("non-valid produces warning, not an error", {
   class(testval) <- "bad-class"
   expect_error(naptime(testval))
   expect_warning(naptime(testval, permissive = TRUE))
-  non_class_test <- system.time(naptime(testval, permissive = TRUE))[["elapsed"]]
+  non_class_test <- system.time(expect_warning(naptime(testval, permissive = TRUE)))[["elapsed"]]
   expect_gte(non_class_test, 0)
   expect_lte(non_class_test, 3)
 })
@@ -105,8 +105,9 @@ test_that("period dispatch", {
 })
 
 test_that("negative period handling", {
-  neg_period_test <- system.time(naptime(lubridate::seconds(-1)))[["elapsed"]]
-  expect_warning(neg_period_test <- system.time(naptime(lubridate::seconds(-1)))[["elapsed"]])
+  expect_warning(
+    neg_period_test <- system.time(naptime(lubridate::seconds(-1)))[["elapsed"]]
+  )
   expect_gte(neg_period_test, 0)
   expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1) + 2)
 })
@@ -130,7 +131,8 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
 })
 
 test_that("generic stop", {
-  expect_error(naptime(glm(rnorm(5) ~ rnorm(5))))
+  # actually hits the not-scalar error
+  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
 })
 
 
