@@ -1,3 +1,7 @@
+# naptime 1.2.2
+
+Character arguments for naptime are now parsed by package:anytime rather than lubridate::ymd_hms.  This allows for greater flexibility in character nap specification.  The previously supported truncated YYYY-MM-DD HH:MM:SS formats should parse the same as they did previously.  So, this change is considered minor.
+
 # naptime 1.2.0
 
 Formatting changes for CRAN deploy. Refer to naptime 1.1.0 NEWS for changes since the last CRAN version.

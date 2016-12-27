@@ -1,4 +1,7 @@
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime) [![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime)
+[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
 
 Why should I use it?
 --------------------
@@ -77,10 +80,21 @@ naptime(lubridate::seconds(1))
 #> NULL
 ```
 
--   character: A single character string formatted YYYY-MM-DD HH:MM:SS at which the nap should stop. The time zone is assumed to be device local. The hour, minute, and second do not need to be specified.
+-   character: A single character string specifying the time at which the nap should stop. The parsing of this character string is left to package:anytime's anytime() function. Therefore, time zone is assumed to be device local. To force the use of UTC or some other timezone you must [override the timezone in your R session](https://github.com/eddelbuettel/anytime/issues/32) prior to loading package:naptime or package:anytime.
 
 ``` r
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))
+#> Called from: doTryCatch(return(expr), name, parentenv, handler)
+#> debug at /Users/russellpierce/naptime/R/naptime.R#129: time_parsed <- try(anytime::anytime(time))
+#> debug at /Users/russellpierce/naptime/R/naptime.R#130: if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
+#>     nap_error("Could not parse '", time, "' as time", permissive = permissive)
+#>     nap_default()
+#> } else {
+#>     t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
+#>     naptime(t, permissive = permissive)
+#> }
+#> debug at /Users/russellpierce/naptime/R/naptime.R#134: t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
+#> debug at /Users/russellpierce/naptime/R/naptime.R#135: naptime(t, permissive = permissive)
 #> NULL
 ```
 

@@ -1,3 +1,7 @@
+2016-12-27  Russell S. Pierce  <russell.s.pierce@gmail.com>
+* Switched character parsing to use package:anytime
+* Bumped version to 1.2.1
+
 2016-11-30  Russell S. Pierce  <russell.s.pierce@gmail.com>
 * Bumped version to 1.2.0
 * Cleaned up tests

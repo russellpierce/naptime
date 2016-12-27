@@ -1,4 +1,4 @@
-## Naptime 1.2.0 Release
+## Naptime 1.2.2 Release
 
 ## Test environments
 * local OS X install

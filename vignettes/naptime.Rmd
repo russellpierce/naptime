@@ -105,7 +105,7 @@ naptime(lubridate::now(tzone = "UTC")+lubridate::seconds(1))
 naptime(lubridate::seconds(1))
 ```
 
-* character: A single character string formatted YYYY-MM-DD HH:MM:SS at which the nap should stop. The time zone is assumed to be device local.  The hour, minute, and second do not need to be specified.
+* character: A single character string specifying the time at which the nap should stop. The parsing of this character string is left to package:anytime's anytime() function.  Therefore, time zone is assumed to be device local.  To force the use of UTC or some other timezone you must [override the timezone in your R session](https://github.com/eddelbuettel/anytime/issues/32) prior to loading package:naptime or package:anytime.
 ```{r}
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))
 ```
