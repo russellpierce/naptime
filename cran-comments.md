@@ -1,5 +1,8 @@
 ## Naptime 1.2.2 Release
 
+## Maintainer Update
+Check shows a maintainer update, but there really hasn't been a change.  I've added my middle initial to given to match my prior CRAN submissions and other professional publications.
+
 ## Test environments
 * local OS X install
  * R 3.3.2
