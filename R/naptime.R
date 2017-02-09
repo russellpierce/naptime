@@ -125,7 +125,6 @@ setMethod("naptime", signature("NULL"),
 setMethod("naptime", signature("character"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            browser()
             time_parsed <- try(anytime::anytime(time))
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
