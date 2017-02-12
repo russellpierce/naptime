@@ -6,18 +6,17 @@ cache: packages
 
 language: r
 
-env:
-- TZ=Europe/Vienna
-- TZ=Europe/London
-- TZ=US/Pacific
 
 #matrix: 3x Linux, 1x OS X
 matrix:
+  env:
+  - TZ=Europe/Vienna
+  - TZ=Europe/London
+  - TZ=US/Pacific
   include:
   - r: release
   - r: oldrel
   - r: devel
-  - r: 3.3.2
   - os: osx
     osx_image: xcode7.2
     r: release
