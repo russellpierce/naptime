@@ -4,7 +4,7 @@
 #' \itemize{
 #'  \item numeric: time in seconds to nap
 #'  \item POSIXct: time at which the nap should stop  (timezone is respected)
-#'  \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms().
+#'  \item character: Date or date time at which nap should stop. This string is parsed by package:anytime's anytime(). The timezone will therefore default to the system local timezone, but this can be \href{https://github.com/eddelbuettel/anytime/issues/32}{overriden with an environmental variable} prior to the loading of naptime and anytime.
 #'  \item Period: time from now at which the nap should stop
 #'  \item difftime: difference in time to nap
 #'  \item logical: If TRUE, nap for default duration, otherwise don't nap.
@@ -22,6 +22,7 @@
 #' @return NULL; A side effect of a pause in program execution
 #' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now tz
 #' @importFrom methods new
+#' @importFrom anytime anytime
 #' @export
 #' @examples
 #' \dontrun{
@@ -83,18 +84,25 @@ setMethod("naptime", signature("POSIXct"),
           })
 
 #' @rdname naptime
+#' @importFrom lubridate seconds
 setMethod("naptime", signature("difftime"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            #Use the units of difftime to construct a Period
-            secs <- lubridate::seconds
-            naptime(
-              eval(
-                parse(
-                  text=paste0(attr(time, "units"), "(", as.numeric(time), ")")
-                  )
-                )
-            , permissive = permissive)
+            magnitude <- as.numeric(time)
+            units <- attr(time, "units")
+            #identify seconds per unit
+            unit_scale <- switch(EXPR = units,
+                                 "secs" = 1,
+                                 "mins" = 60,
+                                 "hours" = 3600,
+                                 "days" = 86400,
+                                 "weeks" = 604800,
+                                 0)
+            if (unit_scale == 0) {
+              stop("Unidentified unit ", units, " in difftime Period")
+            }
+            # Numeric results default to naptime in seconds
+            naptime(unit_scale * magnitude, permissive = permissive)
           })
 
 #' @rdname naptime
@@ -124,14 +132,7 @@ setMethod("naptime", signature("NULL"),
 setMethod("naptime", signature("character"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            time_zone <- ifelse(is.na(Sys.timezone()), "UTC", Sys.timezone())
-            num_char <- nchar(time)
-            if (is.na(num_char) || num_char < 8) {
-              # Times that aren't at least 8 characters long do not have a reasonable chance of being parsable
-              time_parsed <- NA
-            } else if (num_char >= 8) {
-              time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3, quiet = TRUE), silent = TRUE)
-            }
+            time_parsed <- try(anytime::anytime(time))
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
               nap_default()
