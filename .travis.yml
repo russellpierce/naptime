@@ -6,6 +6,10 @@ cache: packages
 
 language: r
 
+os:
+  - linux
+  - osx
+
 env:
 - TZ=Europe/Vienna
 - TZ=Europe/London
