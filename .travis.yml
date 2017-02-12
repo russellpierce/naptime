@@ -19,21 +19,6 @@ env:
 - TZ=Europe/London
 - TZ=US/Pacific
 
-#matrix: 3x Linux, 1x OS X
-matrix:
-  env:
-  - TZ=Europe/Vienna
-  - TZ=Europe/London
-  - TZ=US/Pacific
-  include:
-  - r: release
-  - r: oldrel
-  - r: devel
-  - os: osx
-    osx_image: xcode7.2
-    r: release
-    latex: false
-
 r_github_packages:
   - jimhester/covr
 
