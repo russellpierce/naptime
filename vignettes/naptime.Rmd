@@ -65,7 +65,7 @@ repeat{
 repeat{
   start_time <- lubridate::now()
   # Do processing
-  naptime(start_time + hours(1))
+  naptime(start_time + lubridate::hours(1))
 }
 ```
 

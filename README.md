@@ -32,7 +32,7 @@ Consider the case of wanting to start processing every hour for a job of an inde
     repeat{
       start_time <- lubridate::now()
       # Do processing
-      naptime(start_time + hours(1))
+      naptime(start_time + lubridate::hours(1))
     }
 
 How do I use it?
