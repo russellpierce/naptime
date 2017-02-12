@@ -137,13 +137,13 @@ test_that("generic stop", {
 
 
 test_that("generic warning if permissive", {
-  options(naptime.permissive = FALSE)
-  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
-  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
-
   options(naptime.permissive = TRUE)
   expect_warning(naptime(glm(rnorm(5) ~ runif(5))))
   expect_error(naptime(glm(rnorm(5) ~ runif(5)), permissive = FALSE))
+
+  options(naptime.permissive = FALSE)
+  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
+  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
 })
 
 test_that("zero length custom class produces a warning", {
@@ -152,16 +152,23 @@ test_that("zero length custom class produces a warning", {
   expect_warning(naptime(boo))
 })
 
-test_that("Invalid Period throws error", {
-  basic_period <- difftime(now()+seconds(2), now())
-  attr(basic_period, "units") <- "Invalid Unit"
-  expect_error(naptime(basic_period))
-})
-
 test_that("anytime yields sensible math", {
   expect_gt(as.numeric(difftime(
     lubridate::now(),
     anytime::anytime(lubridate::now()+lubridate::seconds(-1)),
     units = "secs"
   )),expected = 0)
+})
+
+test_that("Invalid Period throws error", {
+  basic_period <- difftime(now()+seconds(2), now())
+  attr(basic_period, "units") <- "Invalid Unit"
+
+  options(naptime.permissive = TRUE)
+  expect_warning(naptime(basic_period))
+  expect_error(naptime(basic_period, permissive = FALSE))
+
+  options(naptime.permissive = FALSE)
+  expect_error(naptime(basic_period))
+  expect_warning(naptime(basic_period, permissive = TRUE))
 })
