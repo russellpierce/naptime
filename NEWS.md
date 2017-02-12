@@ -1,3 +1,8 @@
+# naptime 1.2.3
+
+* Kurt Hornik of CRAN reported problems with naptime 1.2.2 in some locales. This appears to be related to an issue in anytime that I am debugging in this non-CRAN development release.  
+* I have also refactored the handling of Period class objects.  It appears an eval(parse()) antipattern had leaked into the code.  This is now resolved.
+
 # naptime 1.2.2
 
 Character arguments for naptime are now parsed by package:anytime rather than lubridate::ymd_hms.  This allows for greater flexibility in character nap specification.  The previously supported truncated YYYY-MM-DD HH:MM:SS formats should parse the same as they did previously.  So, this change is considered minor.

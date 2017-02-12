@@ -84,18 +84,25 @@ setMethod("naptime", signature("POSIXct"),
           })
 
 #' @rdname naptime
+#' @importFrom lubridate seconds
 setMethod("naptime", signature("difftime"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            #Use the units of difftime to construct a Period
-            secs <- lubridate::seconds
-            naptime(
-              eval(
-                parse(
-                  text=paste0(attr(time, "units"), "(", as.numeric(time), ")")
-                  )
-                )
-            , permissive = permissive)
+            magnitude <- as.numeric(time)
+            units <- attr(time, "units")
+            #identify seconds per unit
+            unit_scale <- switch(EXPR = units,
+                                 "secs" = 1,
+                                 "mins" = 60,
+                                 "hours" = 3600,
+                                 "days" = 86400,
+                                 "weeks" = 604800,
+                                 0)
+            if (unit_scale == 0) {
+              stop("Unidentified unit ", units, " in difftime Period")
+            }
+            # Numeric results default to naptime in seconds
+            naptime(unit_scale * magnitude, permissive = permissive)
           })
 
 #' @rdname naptime

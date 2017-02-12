@@ -1,8 +1,8 @@
 Package: naptime
 Type: Package
 Title: A Flexible and Robust Sys.sleep() Replacement
-Version: 1.2.2
-Date: 2017-02-09
+Version: 1.2.3
+Date: 2017-02-12
 Authors@R: c(
   person("Russell S.", "Pierce", role = c("aut", "cre"), email = "russell.s.pierce@gmail.com"),
   person("Timothy", "Gann", role = c("aut"), email = "timothy.gann@gmail.com")
