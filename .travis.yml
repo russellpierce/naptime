@@ -13,6 +13,10 @@ env:
 
 #matrix: 3x Linux, 1x OS X
 matrix:
+  env:
+  - TZ=Europe/Vienna
+  - TZ=Europe/London
+  - TZ=US/Pacific
   include:
   - r: release
   - r: oldrel
