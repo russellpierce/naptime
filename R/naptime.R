@@ -20,7 +20,7 @@
 #' @rdname naptime
 #'
 #' @return NULL; A side effect of a pause in program execution
-#' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now tz
+#' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now
 #' @importFrom methods new
 #' @importFrom anytime anytime
 #' @export
@@ -79,7 +79,7 @@ setMethod("naptime", signature("Period"),
 setMethod("naptime", signature("POSIXct"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            t <- as.numeric(time) - as.numeric(lubridate::now(tzone = lubridate::tz(time)))
+            t <- as.numeric(time) - as.numeric(lubridate::now())
             naptime(t, permissive = permissive)
           })
 
@@ -137,7 +137,7 @@ setMethod("naptime", signature("character"),
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
               nap_default()
             } else {
-              t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
+              t <- time_parsed - lubridate::now()
               naptime(t, permissive = permissive)
             }
           })
