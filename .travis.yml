@@ -6,8 +6,10 @@ cache: packages
 
 language: r
 
-before_install:
-- export TZ=Europe/Vienna
+env:
+- TZ=Europe/Vienna
+- TZ=Europe/London
+- TZ=US/Pacific
 
 #matrix: 3x Linux, 1x OS X
 matrix:

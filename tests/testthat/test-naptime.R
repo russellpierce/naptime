@@ -151,3 +151,9 @@ test_that("zero length custom class produces a warning", {
   class(boo) <- "moo"
   expect_warning(naptime(boo))
 })
+
+test_that("Invalid Period throws error", {
+  basic_period <- difftime(now()+seconds(2), now())
+  attr(basic_period, "units") <- "Invalid Unit"
+  expect_error(naptime(basic_period))
+})
