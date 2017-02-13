@@ -132,7 +132,8 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
 
 test_that("generic stop", {
   # actually hits the not-scalar error
-  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
+  expect_error(naptime(glm(rnorm(5) ~ runif(5)), permissive = FALSE))
+  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
 })
 
 
@@ -146,10 +147,11 @@ test_that("generic warning if permissive", {
   expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
 })
 
-test_that("zero length custom class produces a warning", {
+test_that("zero length custom class produces a warning/error", {
   boo <- integer(0)
   class(boo) <- "moo"
-  expect_warning(naptime(boo))
+  expect_warning(naptime(boo, permissive = TRUE))
+  expect_error(naptime(boo, permissive = FALSE))
 })
 
 test_that("anytime yields sensible math", {
