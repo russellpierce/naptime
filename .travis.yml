@@ -18,6 +18,7 @@ env:
 - TZ=Europe/Vienna
 - TZ=Europe/London
 - TZ=US/Pacific
+- TZ=Etc/UTC
 
 r_github_packages:
   - jimhester/covr
