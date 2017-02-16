@@ -154,14 +154,6 @@ test_that("zero length custom class produces a warning/error", {
   expect_error(naptime(boo, permissive = FALSE))
 })
 
-test_that("anytime yields sensible math", {
-  expect_gt(as.numeric(difftime(
-    lubridate::now(),
-    anytime::anytime(lubridate::now()+lubridate::seconds(-1)),
-    units = "secs"
-  )),expected = 0)
-})
-
 test_that("Invalid Period throws error", {
   basic_period <- difftime(now()+seconds(2), now())
   attr(basic_period, "units") <- "Invalid Unit"
