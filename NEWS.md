@@ -1,3 +1,8 @@
+# naptime 1.2.4
+
+* CRAN Release
+* Removed naptime's dependency on anytime.  Anytime was failing checks [in some locales](https://github.com/eddelbuettel/anytime/issues/51) because of a bug in the underlying Boost library.  Those failed checks reflected an issue that would cause naptime to underestimate the required nap duration by 1 hour on entry of character dates.
+
 # naptime 1.2.3
 
 * Kurt Hornik of CRAN reported problems with naptime 1.2.2 in some locales. This appears to be related to an issue in anytime that I am debugging in this non-CRAN development release.  
