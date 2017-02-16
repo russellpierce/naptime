@@ -131,6 +131,7 @@ setMethod("naptime", signature("NULL"),
 setMethod("naptime", signature("character"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
+            time_zone <- ifelse(is.na(Sys.timezone()), "UTC", Sys.timezone())
             num_char <- nchar(time)
             if (is.na(num_char) || num_char < 8) {
               # Times that aren't at least 8 characters long do not have a reasonable chance of being parsable
@@ -142,7 +143,7 @@ setMethod("naptime", signature("character"),
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
               nap_default()
             } else {
-              t <- time_parsed - lubridate::now()
+              t <- time_parsed - lubridate::now(tz = time_zone)
               naptime(t, permissive = permissive)
             }
           })
