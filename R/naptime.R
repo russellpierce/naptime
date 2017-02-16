@@ -22,7 +22,6 @@
 #' @return NULL; A side effect of a pause in program execution
 #' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now
 #' @importFrom methods new
-#' @importFrom anytime anytime
 #' @export
 #' @examples
 #' \dontrun{
@@ -132,7 +131,13 @@ setMethod("naptime", signature("NULL"),
 setMethod("naptime", signature("character"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            time_parsed <- try(anytime::anytime(time))
+            num_char <- nchar(time)
+            if (is.na(num_char) || num_char < 8) {
+              # Times that aren't at least 8 characters long do not have a reasonable chance of being parsable
+              time_parsed <- NA
+            } else if (num_char >= 8) {
+              time_parsed <- try(lubridate::ymd_hms(time, tz = time_zone, truncated = 3, quiet = TRUE), silent = TRUE)
+            }
             if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
               nap_default()
