@@ -80,21 +80,10 @@ naptime(lubridate::seconds(1))
 #> NULL
 ```
 
--   character: A single character string specifying the time at which the nap should stop. The parsing of this character string is left to package:anytime's anytime() function. Therefore, time zone is assumed to be device local. To force the use of UTC or some other timezone you must [override the timezone in your R session](https://github.com/eddelbuettel/anytime/issues/32) prior to loading package:naptime or package:anytime.
+-   character: Date or date time at which nap should stop formatted as yyyy-mm-dd hh:mm:ss, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd\_hms()..
 
 ``` r
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))
-#> Called from: doTryCatch(return(expr), name, parentenv, handler)
-#> debug at /Users/russellpierce/naptime/R/naptime.R#129: time_parsed <- try(anytime::anytime(time))
-#> debug at /Users/russellpierce/naptime/R/naptime.R#130: if ("try-error" %in% class(time_parsed) || is.na(time_parsed)) {
-#>     nap_error("Could not parse '", time, "' as time", permissive = permissive)
-#>     nap_default()
-#> } else {
-#>     t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
-#>     naptime(t, permissive = permissive)
-#> }
-#> debug at /Users/russellpierce/naptime/R/naptime.R#134: t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
-#> debug at /Users/russellpierce/naptime/R/naptime.R#135: naptime(t, permissive = permissive)
 #> NULL
 ```
 
