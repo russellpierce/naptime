@@ -68,10 +68,11 @@ setMethod("naptime", signature("numeric"),
           })
 
 #' @rdname naptime
+#' @importFrom lubridate period_to_seconds
 setMethod("naptime", signature("Period"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            naptime(lubridate::period_to_seconds(time), permissive = permissive)
+            naptime(period_to_seconds(time), permissive = permissive)
           })
 
 #' @rdname naptime
