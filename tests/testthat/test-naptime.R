@@ -28,13 +28,13 @@ test_that("numeric dispatch warnings can be disabled", {
 test_that("test of difftime dispatch", {
   difftime_test <- system.time(naptime(difftime("2016-01-01 00:00:05", "2016-01-01 00:00:00")))[["elapsed"]]
   expect_gte(difftime_test, 3)
-  expect_lte(difftime_test, 7)
+  expect_lte(difftime_test, 14)
 })
 
 test_that("test of POSIXct dispatch", {
   ct_test <- system.time(naptime(as.POSIXct(lubridate::now(tzone = "UTC")+lubridate::seconds(5))))[["elapsed"]]
   expect_gte(ct_test, 3)
-  expect_lte(ct_test, 7)
+  expect_lte(ct_test, 14)
 })
 
 test_that("test of difftime error conditions", {
@@ -101,7 +101,7 @@ test_that("non-valid produces warning, not an error", {
 test_that("period dispatch", {
   period_test <- system.time(naptime(lubridate::seconds(5)))[["elapsed"]]
   expect_gte(period_test, 3)
-  expect_lte(period_test, 7)
+  expect_lte(period_test, 14)
 })
 
 test_that("negative period handling", {
@@ -137,7 +137,7 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
       naptime(as.character(lubridate::now() + lubridate::seconds(5)))
     )[["elapsed"]]
   expect_gte(pos_period_test, 3)
-  expect_lte(pos_period_test, 7)
+  expect_lte(pos_period_test, 14)
 })
 
 test_that("generic stop", {
