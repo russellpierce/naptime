@@ -1,5 +1,7 @@
 ## Naptime 1.3.0 Release
 
+The previous version of package:naptime, 1.2.2 was [failing](https://cran.r-project.org/web/checks/check_results_naptime.html) in Europe/London due to a bug in an upstream package.  As urged by Prof. Ripley, the upstream package has been replaced.  I've verified that at least the MacOS Euripe/London locale should have its bug resolved as a consequence.  In addition, in response to feedback from Kurt Hornik some faulty code has been replaced.
+
 ## Test environments
 * local OS X install
  * R 3.3.2
