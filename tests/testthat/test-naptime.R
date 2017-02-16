@@ -112,6 +112,16 @@ test_that("negative period handling", {
   expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1) + 2)
 })
 
+test_that("hour-long negative period handling", {
+  expect_warning(
+    naptime(as.character(lubridate::now() + lubridate::hours(-1)))
+  )
+  expect_gte(neg_period_test, 0)
+  expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1) + 2)
+})
+
+
+
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
   expect_warning(
   neg_period_test <- system.time(
