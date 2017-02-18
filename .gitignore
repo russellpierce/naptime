@@ -24,7 +24,6 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 .Rproj.user
-inst/doc
 revdep/problems.md
 revdep/README.md
 revdep/checks.rds
