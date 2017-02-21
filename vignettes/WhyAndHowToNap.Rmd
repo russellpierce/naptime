@@ -3,11 +3,13 @@ title: 'naptime: A Flexible and Robust Sys.sleep() Replacement'
 author: "Russell S. Pierce & Timothy Gann"
 date: '`r Sys.Date()`'
 output:
+  rmarkdown::html_vignette: default
   md_document:
     variant: markdown_github
-  rmarkdown::html_vignette: default
-vignette: |
-  %\VignetteIndexEntry{Why and How to Nap} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+vignette: >
+  %\VignetteIndexEntry{Why and How to Nap}
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, echo = FALSE, results='asis'}
