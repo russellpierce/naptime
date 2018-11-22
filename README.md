@@ -1,4 +1,4 @@
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime) [![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Travis-CI Build Status](https://travis-ci.org/russellpierce/naptime.svg?branch=master)](https://travis-ci.org/russellpierce/naptime) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime) [![codecov.io](https://codecov.io/github/russellpierce/naptime/coverage.svg?branch=master)](https://codecov.io/github/russellpierce/naptime?branch=master)
 
 Why should I use it?
 --------------------
@@ -120,7 +120,7 @@ naptime(glm(rnorm(5) ~ runif(5)))
 #> NULL
 ```
 
-If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues) or PR in which you resolve the shortcoming.
+If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/russellpierce/naptime/issues) or PR in which you resolve the shortcoming.
 
 How do I get it?
 ----------------
@@ -128,7 +128,7 @@ How do I get it?
 The current version is on CRAN, but you can fetch an early release of the upcoming build directly from github:
 
     library(devtools)
-    install_github("drknexus/naptime")
+    install_github("russellpierce/naptime")
     library(naptime)
 
 Author's Note
