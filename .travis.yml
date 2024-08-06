@@ -5,9 +5,20 @@ sudo: false
 cache: packages
 
 language: r
+r:
+  - oldrel
+  - release
+  - devel
 
-before_install:
-- export TZ=Europe/Vienna
+os:
+  - linux
+  - osx
+
+env:
+- TZ=Europe/Vienna
+- TZ=Europe/London
+- TZ=US/Pacific
+- TZ=Etc/UTC
 
 #matrix: 3x Linux, 1x OS X
 matrix:

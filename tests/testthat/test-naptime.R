@@ -28,13 +28,13 @@ test_that("numeric dispatch warnings can be disabled", {
 test_that("test of difftime dispatch", {
   difftime_test <- system.time(naptime(difftime("2016-01-01 00:00:05", "2016-01-01 00:00:00")))[["elapsed"]]
   expect_gte(difftime_test, 3)
-  expect_lte(difftime_test, 7)
+  expect_lte(difftime_test, 14)
 })
 
 test_that("test of POSIXct dispatch", {
   ct_test <- system.time(naptime(as.POSIXct(lubridate::now(tzone = "UTC")+lubridate::seconds(5))))[["elapsed"]]
   expect_gte(ct_test, 3)
-  expect_lte(ct_test, 7)
+  expect_lte(ct_test, 14)
 })
 
 test_that("test of difftime error conditions", {
@@ -101,7 +101,7 @@ test_that("non-valid produces warning, not an error", {
 test_that("period dispatch", {
   period_test <- system.time(naptime(lubridate::seconds(5)))[["elapsed"]]
   expect_gte(period_test, 3)
-  expect_lte(period_test, 7)
+  expect_lte(period_test, 14)
 })
 
 test_that("negative period handling", {
@@ -111,6 +111,16 @@ test_that("negative period handling", {
   expect_gte(neg_period_test, 0)
   expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1) + 2)
 })
+
+test_that("hour-long negative period handling", {
+  expect_warning(
+    neg_period_test <- system.time(naptime(lubridate::hours(-1)))[["elapsed"]]
+  )
+  expect_gte(neg_period_test, 0)
+  expect_lte(neg_period_test, getOption("naptime.default_delay", 0.1) + 2)
+})
+
+
 
 test_that("character date handling: yyyy-mm-dd hh:mm:ss in past", {
   expect_warning(
@@ -127,27 +137,42 @@ test_that("character date handling: yyyy-mm-dd hh:mm:ss in future", {
       naptime(as.character(lubridate::now() + lubridate::seconds(5)))
     )[["elapsed"]]
   expect_gte(pos_period_test, 3)
-  expect_lte(pos_period_test, 7)
+  expect_lte(pos_period_test, 14)
 })
 
 test_that("generic stop", {
   # actually hits the not-scalar error
-  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
+  expect_error(naptime(glm(rnorm(5) ~ runif(5)), permissive = FALSE))
+  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
 })
 
 
 test_that("generic warning if permissive", {
-  options(naptime.permissive = FALSE)
-  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
-  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
-
   options(naptime.permissive = TRUE)
   expect_warning(naptime(glm(rnorm(5) ~ runif(5))))
   expect_error(naptime(glm(rnorm(5) ~ runif(5)), permissive = FALSE))
+
+  options(naptime.permissive = FALSE)
+  expect_error(naptime(glm(rnorm(5) ~ runif(5))))
+  expect_warning(naptime(glm(rnorm(5) ~ runif(5)), permissive = TRUE))
 })
 
-test_that("zero length custom class produces a warning", {
+test_that("zero length custom class produces a warning/error", {
   boo <- integer(0)
   class(boo) <- "moo"
-  expect_warning(naptime(boo))
+  expect_warning(naptime(boo, permissive = TRUE))
+  expect_error(naptime(boo, permissive = FALSE))
+})
+
+test_that("Invalid Period throws error", {
+  basic_period <- difftime(now()+seconds(2), now())
+  attr(basic_period, "units") <- "Invalid Unit"
+
+  options(naptime.permissive = TRUE)
+  expect_warning(naptime(basic_period))
+  expect_error(naptime(basic_period, permissive = FALSE))
+
+  options(naptime.permissive = FALSE)
+  expect_error(naptime(basic_period))
+  expect_warning(naptime(basic_period, permissive = TRUE))
 })

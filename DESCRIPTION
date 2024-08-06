@@ -1,10 +1,10 @@
 Package: naptime
 Type: Package
 Title: A Flexible and Robust Sys.sleep() Replacement
-Version: 1.2.0
-Date: 2016-11-30
+Version: 1.3.0
+Date: 2017-02-22
 Authors@R: c(
-  person("Russell", "Pierce", role = c("aut", "cre"), email = "russell.s.pierce@gmail.com"),
+  person("Russell S.", "Pierce", role = c("aut", "cre"), email = "russell.s.pierce@gmail.com"),
   person("Timothy", "Gann", role = c("aut"), email = "timothy.gann@gmail.com")
   )
 Description: Provides a near drop-in replacement for base::Sys.sleep() that allows more types of input
@@ -18,7 +18,7 @@ Suggests:
     covr,
     knitr,
     rmarkdown
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 URL: https://github.com/russellpierce/naptime
 BugReports: https://github.com/russellpierce/naptime/issues

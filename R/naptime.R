@@ -4,7 +4,7 @@
 #' \itemize{
 #'  \item numeric: time in seconds to nap
 #'  \item POSIXct: time at which the nap should stop  (timezone is respected)
-#'  \item character: yyyy-mm-dd hh:mm:ss at which nap should stop, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms().
+#'  \item character: Date or date time at which nap should stop formatted as yyyy-mm-dd hh:mm:ss, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms().
 #'  \item Period: time from now at which the nap should stop
 #'  \item difftime: difference in time to nap
 #'  \item logical: If TRUE, nap for default duration, otherwise don't nap.
@@ -20,7 +20,7 @@
 #' @rdname naptime
 #'
 #' @return NULL; A side effect of a pause in program execution
-#' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now tz
+#' @importFrom lubridate period_to_seconds ymd_hms ymd seconds now
 #' @importFrom methods new
 #' @export
 #' @examples
@@ -68,33 +68,41 @@ setMethod("naptime", signature("numeric"),
           })
 
 #' @rdname naptime
+#' @importFrom lubridate period_to_seconds
 setMethod("naptime", signature("Period"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            naptime(lubridate::period_to_seconds(time), permissive = permissive)
+            naptime(period_to_seconds(time), permissive = permissive)
           })
 
 #' @rdname naptime
 setMethod("naptime", signature("POSIXct"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            t <- as.numeric(time) - as.numeric(lubridate::now(tzone = lubridate::tz(time)))
+            t <- as.numeric(time) - as.numeric(lubridate::now())
             naptime(t, permissive = permissive)
           })
 
 #' @rdname naptime
+#' @importFrom lubridate seconds
 setMethod("naptime", signature("difftime"),
           function(time, permissive = getOption("naptime.permissive", permissive_default))
           {
-            #Use the units of difftime to construct a Period
-            secs <- lubridate::seconds
-            naptime(
-              eval(
-                parse(
-                  text=paste0(attr(time, "units"), "(", as.numeric(time), ")")
-                  )
-                )
-            , permissive = permissive)
+            magnitude <- as.numeric(time)
+            units <- attr(time, "units")
+            #identify seconds per unit
+            unit_scale <- switch(EXPR = units,
+                                 "secs" = 1,
+                                 "mins" = 60,
+                                 "hours" = 3600,
+                                 "days" = 86400,
+                                 "weeks" = 604800,
+                                 0)
+            if (unit_scale == 0) {
+              stop("Unidentified unit ", units, " in difftime Period")
+            }
+            # Numeric results default to naptime in seconds
+            naptime(unit_scale * magnitude, permissive = permissive)
           })
 
 #' @rdname naptime
@@ -136,7 +144,7 @@ setMethod("naptime", signature("character"),
               nap_error("Could not parse '", time, "' as time", permissive = permissive)
               nap_default()
             } else {
-              t <- time_parsed - lubridate::now(tzone = lubridate::tz(time_parsed))
+              t <- time_parsed - lubridate::now(tz = time_zone)
               naptime(t, permissive = permissive)
             }
           })

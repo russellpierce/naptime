@@ -1,3 +1,20 @@
+# naptime 1.3.0
+
+## Breaking Change
+* Date parsing is again performed by lubridate.  The limitation with this change is that character date input is again limited to only the yyyy-mm-dd hh:mm:ss format.
+
+## Other Notes
+* Removed naptime's dependency on anytime.  Anytime was failing checks [in some locales](https://github.com/eddelbuettel/anytime/issues/51) because of a bug in the underlying Boost library.  Those failed checks reflected an issue that would cause naptime to underestimate the required nap duration by 1 hour on entry of character dates.  
+
+# naptime 1.2.3
+
+* Kurt Hornik of CRAN reported problems with naptime 1.2.2 in some locales. This appears to be related to an issue in anytime that I am debugging in this non-CRAN development release.  
+* I have also refactored the handling of Period class objects.  It appears an eval(parse()) antipattern had leaked into the code.  This is now resolved.
+
+# naptime 1.2.2
+
+Character arguments for naptime are now parsed by package:anytime rather than lubridate::ymd_hms.  This allows for greater flexibility in character nap specification.  The previously supported truncated YYYY-MM-DD HH:MM:SS formats should parse the same as they did previously.  So, this change is considered minor.
+
 # naptime 1.2.0
 
 Formatting changes for CRAN deploy. Refer to naptime 1.1.0 NEWS for changes since the last CRAN version.

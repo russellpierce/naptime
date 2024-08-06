@@ -29,7 +29,7 @@ Consider the case of wanting to start processing every hour for a job of an inde
     repeat{
       start_time <- lubridate::now()
       # Do processing
-      naptime(start_time + hours(1))
+      naptime(start_time + lubridate::hours(1))
     }
 
 How do I use it?
@@ -77,7 +77,7 @@ naptime(lubridate::seconds(1))
 #> NULL
 ```
 
--   character: A single character string formatted YYYY-MM-DD HH:MM:SS at which the nap should stop. The time zone is assumed to be device local. The hour, minute, and second do not need to be specified.
+-   character: Date or date time at which nap should stop formatted as yyyy-mm-dd hh:mm:ss, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd\_hms()..
 
 ``` r
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))

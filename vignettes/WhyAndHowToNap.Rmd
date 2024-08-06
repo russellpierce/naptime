@@ -8,7 +8,7 @@ output:
     variant: markdown_github
 vignette: >
   %\VignetteIndexEntry{Why and How to Nap}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -65,7 +65,7 @@ repeat{
 repeat{
   start_time <- lubridate::now()
   # Do processing
-  naptime(start_time + hours(1))
+  naptime(start_time + lubridate::hours(1))
 }
 ```
 
@@ -105,7 +105,7 @@ naptime(lubridate::now(tzone = "UTC")+lubridate::seconds(1))
 naptime(lubridate::seconds(1))
 ```
 
-* character: A single character string formatted YYYY-MM-DD HH:MM:SS at which the nap should stop. The time zone is assumed to be device local.  The hour, minute, and second do not need to be specified.
+* character: Date or date time at which nap should stop formatted as yyyy-mm-dd hh:mm:ss, time zone is assumed to be Sys.timezone() and hh:mm:ss is optional as three formats may be missing, cf. lubridate::ymd_hms()..
 ```{r}
 naptime(as.character(lubridate::now() + lubridate::seconds(1)))
 ```
