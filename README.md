@@ -1,4 +1,4 @@
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Travis-CI Build Status](https://travis-ci.org/russellpierce/naptime.svg?branch=master)](https://travis-ci.org/russellpierce/naptime) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime) [![codecov.io](https://codecov.io/github/russellpierce/naptime/coverage.svg?branch=master)](https://codecov.io/github/russellpierce/naptime?branch=master)
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Travis-CI Build Status](https://travis-ci.org/russellpierce/naptime.svg?branch=master)](https://travis-ci.org/russellpierce/naptime) [![CRAN\_Status\_Badge](https://badges.cranchecks.info/worst/naptime.svg)](https://cran.r-project.org/package=naptime) [![codecov.io](https://codecov.io/github/russellpierce/naptime/coverage.svg?branch=master)](https://codecov.io/github/russellpierce/naptime?branch=master)
 
 Why should I use it?
 --------------------
