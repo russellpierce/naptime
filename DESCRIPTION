@@ -9,8 +9,6 @@ Authors@R: c(
   )
 Description: Provides a near drop-in replacement for base::Sys.sleep() that allows more types of input
     to produce delays in the execution of code and can silence/prevent typical sources of error.
-URL: https://github.com/drknexus/naptime
-BugReports: https://github.com/drknexus/naptime/issues
 License: GPL-2
 Imports:
     methods,
@@ -22,5 +20,5 @@ Suggests:
     rmarkdown
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
-URL: https://github.com/drknexus/naptime
-BugReports: https://github.com/drknexus/naptime/issues
+URL: https://github.com/russellpierce/naptime
+BugReports: https://github.com/russellpierce/naptime/issues
