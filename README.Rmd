@@ -7,21 +7,18 @@ output:
   md_document:
     variant: markdown_github
 vignette: >
-  %\VignetteIndexEntry{Why and How to Nap}
+  %\VignetteIndexEntry{naptime: A Flexible and Robust Sys.sleep() Replacement}
   %\VignetteEngine{knitr::rmarkdown} 
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo = FALSE, results='asis'}
+```{r badges, echo = FALSE, results='asis'}
 # Include badges only when making the github markdown
 library(knitr)
 if ("github_markdown" %in% knitr::opts_knit$get("rmarkdown.pandoc.to")) {
-  cat("
-[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![Travis-CI Build Status](https://travis-ci.org/drknexus/naptime.svg?branch=master)](https://travis-ci.org/drknexus/naptime)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/naptime)](https://cran.r-project.org/package=naptime)
-[![codecov.io](https://codecov.io/github/drknexus/naptime/coverage.svg?branch=master)](https://codecov.io/github/drknexus/naptime?branch=master)
-      ")
+  cat(r"(
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN\_Status\_Badge](https://badges.cranchecks.info/worst/naptime.svg)](https://cran.r-project.org/package=naptime) [![codecov.io](https://codecov.io/github/russellpierce/naptime/coverage.svg?branch=master)](https://app.codecov.io/github/russellpierce/naptime?branch=master)
+)")
 }
 ```
 
@@ -34,6 +31,8 @@ knitr::opts_chunk$set(
 library(naptime)
 library(lubridate)
 ```
+
+# Why and How to Nap
 
 ## Why should I use it?
 
@@ -132,7 +131,7 @@ options(naptime.permissive = TRUE)
 naptime(glm(rnorm(5) ~ runif(5)))
 ```
 
-If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/drknexus/naptime/issues) or PR in which you resolve the shortcoming.
+If you find a reasonable input-type for which `naptime::naptime()` doesn't have a reasonable response, please file [an issue](https://github.com/russellpierce/naptime/issues) or PR in which you resolve the shortcoming.
 
 
 
@@ -143,7 +142,7 @@ The current version is on CRAN, but you can fetch an early release of the upcomi
 
 ```
 library(devtools)
-install_github("drknexus/naptime")
+install_github("russellpierce/naptime")
 library(naptime)
 ```
 

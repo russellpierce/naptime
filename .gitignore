@@ -28,3 +28,4 @@ revdep/problems.md
 revdep/README.md
 revdep/checks.rds
 inst/doc
+*.html

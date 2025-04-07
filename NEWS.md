@@ -1,3 +1,7 @@
+# naptime 1.3.1
+
+No functional changes.  CRAN noted bad parts in the URL field of DESCRIPTION.  I was unable to replicate. However a minor refresh and clean-up of documentation and tooling ensued (e.g. ROxygen updated to 7.3.2, dropped Travis-CI for Github Actions/{rhub}, dropped revdep). 
+
 # naptime 1.3.0
 
 ## Breaking Change
@@ -27,7 +31,7 @@ Formatting changes for CRAN deploy. Refer to naptime 1.1.0 NEWS for changes sinc
 
 ## Behavior changes
 
-* Per [request](https://github.com/drknexus/naptime/issues/6) naptime is now quite a bit more discerning by default.  If the argument provided isn't interpretable, naptime will throw as an error.  The old permissive behavior that produces warnings and default delays can be more or less restored by setting the option `naptime.permissive` to TRUE or setting the permissive parameter as TRUE on any given naptime call (parameter overrides the option)
+* Per [request](https://github.com/russellpierce/naptime/issues/6) naptime is now quite a bit more discerning by default.  If the argument provided isn't interpretable, naptime will throw as an error.  The old permissive behavior that produces warnings and default delays can be more or less restored by setting the option `naptime.permissive` to TRUE or setting the permissive parameter as TRUE on any given naptime call (parameter overrides the option)
 * Logicals no longer produce a warning.  Logical FALSE is interpreted as meaning 'no delay' and TRUE is interpreted as meaning default delay.
 * Calling naptime with a NULL no longer produces a delay or warning as this is interpreted as meaning 'no delay'.
 
