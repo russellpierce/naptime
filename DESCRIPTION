@@ -18,7 +18,8 @@ Suggests:
     covr,
     knitr,
     rmarkdown
-RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 URL: https://github.com/russellpierce/naptime
 BugReports: https://github.com/russellpierce/naptime/issues
+RoxygenNote: 7.3.2
+Encoding: UTF-8
