@@ -1,6 +1,6 @@
 # naptime 1.3.1
 
-No functional changes.  CRAN noted bad parts in the URL field of DESCRIPTION.  I was unable to replicate. However a minor refresh and clean-up of documentation and tooling ensued (e.g. ROxygen updated to 7.3.2, dropped Travis-CI for Github Actions/{rhub}, dropped revdep). 
+No functional changes.  CRAN noted bad parts in the URL field of DESCRIPTION.  This release corrects that file. In addition, I've performed a minor refresh and clean-up of documentation and tooling (e.g. ROxygen updated to 7.3.2, dropped Travis-CI for Github Actions/{rhub}, dropped Vignette in favor of just having a README.md). 
 
 # naptime 1.3.0
 

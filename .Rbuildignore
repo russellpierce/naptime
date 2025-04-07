@@ -6,4 +6,5 @@ cran-comments.md
 ^README\.Rmd$
 ^README-.*\.png$
 ^README\.html$
-^*.tex$
+^.*\.tex$
+\.github

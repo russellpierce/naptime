@@ -1,3 +1,7 @@
+## Naptime 1.3.1 Release
+
+I received a notice about an issue with the URL field in DESCRIPTION.  I can see from the tarball on offer that the error is present in that file.  But, I've been unable to replicate with my current build tooling. I am submitting a new tarball for which I've manually verified the URL field.
+
 ## Naptime 1.3.0 Release
 
 The previous version of package:naptime, 1.2.2 was [failing](https://cran.r-project.org/web/checks/check_results_naptime.html) in Europe/London due to a bug in an upstream package.  As urged by Prof. Ripley, the upstream package has been replaced.  I've verified that at least the MacOS Euripe/London locale should have its bug resolved as a consequence.  In addition, in response to feedback from Kurt Hornik some faulty code (eval parse anti-pattern) has been replaced.
